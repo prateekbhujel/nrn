@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,11 @@ class ProfileController extends Controller
         ]);
 
     }//End Method
+
+    public function viewUsers(UsersDataTable $dataTable)
+    {
+        return $dataTable->render('admin.profile.index');
+    }
 
     // Update the user's profile
     public function update(Request $request)

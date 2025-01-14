@@ -17,6 +17,10 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  
 </head>
 
 <body>
@@ -89,7 +93,6 @@
       });
     });
   </script>
-
   {{-- Example to use delete button 
     <!-- Delete Button (Pass the ID and Route) -->
     <a href="#" 
@@ -98,6 +101,12 @@
       Delete
     </a>
   --}}
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+    @stack('scripts')
 
 </body>
 </html>
