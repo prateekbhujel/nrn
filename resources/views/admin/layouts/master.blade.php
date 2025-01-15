@@ -98,7 +98,7 @@
     <a href="#" 
       class="btn btn-danger delete-button" 
       data-link="{{ route('admin.profile.destroy', $user->id) }}">
-      Delete
+      <i class="fas fa-trash"></i>
     </a>
   --}}
 

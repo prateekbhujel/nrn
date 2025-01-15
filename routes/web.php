@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     /** Dashboard routes. **/
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('posts', PostController::class)->except('show');
 
 });
 
