@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<<<<<<< HEAD
     <title>NRN Website</title>
     <link rel="stylesheet" href="https://norviceducations.edu.np/frontend/css/bootstrap.min.css">
     <link rel="icon" type="images/png" href="https://norviceducations.edu.np/frontend/images/favicon.jpg">
@@ -564,34 +563,6 @@ theoretical and practical knowledge in the field of nursing which...
                 </span>
             </div> -->
     </section>
-=======
-    <title>NRN Association</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-</head>
-
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">NRNA</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/about.html">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/faq.html">FAQ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/events.html">Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/resources.html">Resources</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
->>>>>>> b3b404f10113e4fa470c6e7ecd0dbe731ad484a1
 
     <main class="container mt-4">
         <section class="hero-section text-center py-5">
@@ -633,7 +604,6 @@ theoretical and practical knowledge in the field of nursing which...
         </section>
     </main>
 
-<<<<<<< HEAD
     <!-- Photo Gallery Section -->
     <section id="photo-gallery" class="container py-5">
         <h2 class="text-center">Photo Gallery</h2>
@@ -900,14 +870,6 @@ theoretical and practical knowledge in the field of nursing which...
         });
     </script>
 
-=======
-    <footer class="bg-light text-center py-3">
-        <p>&copy; 2025 NRNA Association. All rights reserved.</p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
->>>>>>> b3b404f10113e4fa470c6e7ecd0dbe731ad484a1
 </body>
 
 </html>
