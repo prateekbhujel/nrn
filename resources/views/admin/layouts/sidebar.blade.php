@@ -4,13 +4,20 @@
       <a href="{{ route('admin.dashboard') }}">{{ config('app.name') }}</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="{{ route('admin.dashboard') }}">NRN</a>
+      <a href="{{ route('admin.dashboard') }}">CMS</a>
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
       <li class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
           <i class="fas fa-fire"></i><span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="menu-header">Content Management</li>
+      <li class="{{ Request::routeIs('admin.posts.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.posts.index') }}">
+          <i class="fas fa-pencil-alt"></i><span>Posts</span>
         </a>
       </li>
 
