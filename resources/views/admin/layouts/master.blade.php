@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>@yield('title', 'NRN') &mdash; {{ config('app.name') }}</title>
-
+  @stack('styles')
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/modules/fontawesome/css/all.min.css') }}">
@@ -12,7 +12,7 @@
 
   <!-- Toastr and SweetAlert2 CSS -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('admin/assets/js/sweetalert2.min.js') }}">
+  <!-- Note: The SweetAlert2 JS file should not be loaded as a CSS file -->
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
@@ -20,9 +20,11 @@
 
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  
-</head>
 
+  <!-- Additional Plugins CSS (Select2, GLightbox) -->
+  <link rel="stylesheet" href="{{ asset('admin/assets/modules/select2/dist/css/select2.min.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+</head>
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
@@ -45,13 +47,17 @@
     </div>
   </div>
 
-  <!-- General JS Scripts -->
+  <!-- General JS Scripts (Correct Order) -->
   <script src="{{ asset('admin/assets/modules/jquery.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
   <script src="{{ asset('admin/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
 
-  {{-- Nice Scroll --}}
+  <!-- Nice Scroll -->
   <script src="{{ asset('admin/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
-  
+  <script>
+    document.addEventListener("wheel", function(e) {}, { passive: true });
+  </script>
+
   <!-- Toastr and SweetAlert2 JS -->
   <script src="{{ asset('admin/assets/js/toastr.min.js') }}"></script>
   <script src="{{ asset('admin/assets/js/sweetalert2.min.js') }}"></script>
@@ -59,54 +65,56 @@
   <!-- Template JS -->
   <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>
 
-  <!-- Toastr & SweetAlert2 Notifications -->
-  <script type="text/javascript">
-
-      // Toastr Notifications
-      @if(session('success'))
-        toastr.success("{{ session('success') }}");
-      @elseif(session('error'))
-        toastr.error("{{ session('error') }}");
-      @elseif(session('warning'))
-        toastr.warning("{{ session('warning') }}");
-      @elseif(session('info'))
-        toastr.info("{{ session('info') }}");
-    @endif
-
-    // SweetAlert2 Example for Buttons 
-    document.querySelectorAll('.delete-button').forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = this.getAttribute('data-link');
-          }
-        });
-      });
-    });
-  </script>
-  {{-- Example to use delete button 
-    <!-- Delete Button (Pass the ID and Route) -->
-    <a href="#" 
-      class="btn btn-danger delete-button" 
-      data-link="{{ route('admin.profile.destroy', $user->id) }}">
-      <i class="fas fa-trash"></i>
-    </a>
-  --}}
-
   <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+  <!-- Summernote and Select2 -->
+  <script src="{{ asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
+  <script src="{{ asset('admin/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
 
-    @stack('scripts')
+  <!-- GLightbox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        $('.summernote').summernote({ height: 200 });
+        $('.select2').select2();
+    });
+    const lightbox = GLightbox({ selector: '.glightbox' });
+  </script>
+<script>
+  $(document).on('click', '.delete-btn', function (e) {
+      e.preventDefault();
+      let url = $(this).data('url');
 
+      Swal.fire({
+          title: "Are you sure?",
+          text: "This action cannot be undone!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              $.ajax({
+                  url: url,
+                  type: 'DELETE',
+                  data: {
+                      _token: '{{ csrf_token() }}'
+                  },
+                  success: function (response) {
+                      Swal.fire("Deleted!", response.message, "success");
+                      location.reload();
+                  },
+                  error: function () {
+                      Swal.fire("Error!", "Something went wrong.", "error");
+                  }
+              });
+          }
+      });
+  });
+</script>
+
+  @stack('scripts')
 </body>
 </html>

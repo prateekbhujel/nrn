@@ -11,7 +11,7 @@ class DashboardController extends Controller
     */
     public function index()
     {
-        return view('admin.profile.edit', ['user' => auth()->user()]);
-
+        return view('admin.dashboard.index');
+        
     }//End Method 
 }

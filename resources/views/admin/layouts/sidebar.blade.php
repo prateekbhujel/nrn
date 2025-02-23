@@ -15,9 +15,9 @@
       </li>
 
       <li class="menu-header">Content Management</li>
-      <li class="{{ Request::routeIs('admin.posts.*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.posts.index') }}">
-          <i class="fas fa-pencil-alt"></i><span>Posts</span>
+      <li class="{{ Request::routeIs('admin.events.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.events.index') }}">
+          <i class="fas fa-pencil-alt"></i><span>Manage Events</span>
         </a>
       </li>
 

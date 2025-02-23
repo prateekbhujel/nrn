@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,13 +13,15 @@ Route::get('/', function () {
 /** Admin Routes. **/ 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     /** Profile routes. **/
-    Route::get('/profile', [ProfileController::class, 'viewUsers'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     /** Dashboard routes. **/
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('posts', PostController::class)->except('show');
+    
+    /** Event, project and News routes. **/
+    Route::resource('events', EventController::class);
 
+    
 });
 
 require __DIR__.'/auth.php';
