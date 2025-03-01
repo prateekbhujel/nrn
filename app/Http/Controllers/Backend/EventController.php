@@ -24,21 +24,20 @@ class EventController extends Controller
         $request->validate([
             'title'       => 'required',
             'description' => 'required',
-            'banner'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         $data = $request->except('banner');
     
         if ($request->hasFile('banner')) {
-            $file = $request->file('banner');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('events', $filename, 'public');
+            $filePath = uploadImage($request->file('banner'));
             $data['banner'] = $filePath;
         }
     
         Event::create($data);
     
-        return redirect()->route('admin.events.index')->with('success', 'Event created successfully.');
+        return redirect()->route('admin.events.index')
+                         ->with('success', 'Event created successfully.');
     }    
 
     public function edit($id)
@@ -59,25 +58,27 @@ class EventController extends Controller
         $data = $request->except('banner');
     
         if ($request->hasFile('banner')) {
-            if ($event->banner && file_exists(storage_path('app/public/' . $event->banner))) {
-                unlink(storage_path('app/public/' . $event->banner));
+            if ($event->banner) {
+                deleteImages($event->banner);
             }
-    
-            $file = $request->file('banner');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('events', $filename, 'public');
+            $filePath = uploadImage($request->file('banner'));
             $data['banner'] = $filePath;
         }
     
         $event->update($data);
     
-        return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');
+        return redirect()->route('admin.events.index')
+                         ->with('success', 'Event updated successfully.');
     }
 
     public function destroy($id)
     {
         $event = Event::findOrFail($id);
+        if ($event->banner) {
+            deleteImages($event->banner);
+        }
         $event->delete();
-        return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('admin.events.index')
+                         ->with('success', 'Event deleted successfully.');
     }
 }

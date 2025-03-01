@@ -20,6 +20,11 @@
           <i class="fas fa-pencil-alt"></i><span>Manage Events</span>
         </a>
       </li>
+      <li class="{{ Request::routeIs('admin.news.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.news.index') }}">
+          <i class="fas fa-pencil-alt"></i><span>Manage News</span>
+        </a>
+      </li>
 
       <li class="menu-header">Starter</li>
       <li class="dropdown">

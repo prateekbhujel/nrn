@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Carbon;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -20,6 +21,9 @@ class EventDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->editColumn('event_date', function ($news) {
+                return Carbon::parse($news->event_date)->format('M j, Y');
+            })
             ->addColumn('action', function ($event) {
                 return view('admin.events.partials.actions', compact('event'))->render();
             })
@@ -49,16 +53,7 @@ class EventDataTable extends DataTable
             ->setTableId('event-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(1)
-            ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            ]);
+            ->orderBy(0);
     }
 
     /**

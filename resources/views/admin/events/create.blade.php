@@ -37,6 +37,12 @@ $fields = [
         'required' => true,
     ],
     [
+            'name' => 'location',
+            'label' => 'Location',
+            'type' => 'text',
+            'placeholder' => 'Enter event location',
+    ],
+    [
         'name' => 'description',
         'label' => 'Description',
         'type' => 'textarea',

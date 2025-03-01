@@ -21,7 +21,6 @@
             'name' => 'banner',
             'label' => 'Banner Image',
             'type' => 'file',
-            'required' => true,
         ],
         [
             'name' => 'title',
