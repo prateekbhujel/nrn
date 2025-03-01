@@ -1,18 +1,18 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Create Event')
+@section('title', 'Create Galleries')
 
 @section('content')
 <div class="section-header">
   <div class="section-header-back">
-    <a href="{{ route('admin.events.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+    <a href="{{ route('admin.gallery.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
   </div>
-  <h1>Manage Event</h1>
+  <h1>Manage Galleries</h1>
 </div>
 
 <div class="card">
   <div class="card-header">
-    <h4>Create Event</h4>
+    <h4>Create Gallery</h4>
   </div>
   <div class="card-body">
     @php
@@ -21,20 +21,18 @@ $fields = [
         'name' => 'banner',
         'label' => 'Banner Images',
         'type' => 'file',
-        'required' => true,
+        'multiple' => true,
     ],
     [
         'name' => 'title',
-        'label' => 'Title',
+        'label' => 'Image Title',
         'type' => 'text',
-        'required' => true,
         'placeholder' => 'Enter title',
     ],
     [
-        'name' => 'event_date',
-        'label' => 'Event Date',
+        'name' => 'date',
+        'label' => 'Image Date',
         'type' => 'date',
-        'required' => true,
     ],
     [
             'name' => 'location',
@@ -45,17 +43,15 @@ $fields = [
     [
         'name' => 'description',
         'label' => 'Description',
-        'class' => 'summernote',
         'type' => 'textarea',
-        'required' => true,
     ],
 ];
 @endphp
 
 <x-cms-form 
-    action="{{ route('admin.events.store') }}" 
+    action="{{ route('admin.gallery.store') }}" 
     :fields="$fields"
-    submitText="Create Event"
+    submitText="Create Gallery"
     buttonPosition="right"
 />
   </div>

@@ -31,6 +31,12 @@
         </a>
       </li>
 
+      <li class="{{ Request::routeIs('admin.gallery.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.gallery.index') }}">
+          <i class="fas fa-pencil-alt"></i><span>Manage Galleries</span>
+        </a>
+      </li>
+
       <li class="menu-header">Starter</li>
       <li class="dropdown">
         <a href="#" class="nav-link has-dropdown"><i class="fas fa-columns"></i><span>Layout</span></a>

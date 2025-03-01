@@ -40,6 +40,7 @@
                         'name' => 'description',
                         'label' => 'Description',
                         'type' => 'textarea',
+                        'class' => 'summernote',
                         'required' => true,
                     ],
                 ];

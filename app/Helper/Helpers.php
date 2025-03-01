@@ -3,17 +3,30 @@
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Upload an image file.
+ * Upload an image file or multiple image files.
  *
- * @param \Illuminate\Http\UploadedFile $file
+ * @param \Illuminate\Http\UploadedFile|array $files
  * @param string $folder
  * @param string $disk
- * @return string|false The stored file path or false on failure.
+ * @return array|string|false The stored file path(s) or false on failure.
  */
-function uploadImage($file, $folder = 'uploads', $disk = 'public')
+function uploadImage($files, $folder = 'uploads', $disk = 'public')
 {
-    $filename = time() . '.' . $file->getClientOriginalExtension();
-    return $file->storeAs($folder, $filename, $disk);
+    $paths = [];
+
+    $files = is_array($files) ? $files : [$files];
+
+    foreach ($files as $file) {
+        $filename = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs($folder, $filename, $disk);
+        if ($path) {
+            $paths[] = $path;
+        } else {
+            return false;
+        }
+    }
+
+    return count($paths) === 1 ? $paths[0] : $paths;
 }
 
 /**

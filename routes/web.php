@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EventController;
+use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProjectController;
@@ -27,6 +28,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::get('projects/{project}/gallery/create', [ProjectController::class, 'galleryCreate'])->name('projects.gallery.create');
     Route::post('projects/{project}/gallery', [ProjectController::class, 'galleryStore'])->name('projects.gallery.store');
+
+    /** Gallery routes. **/
+    Route::resource('gallery', GalleryController::class);
+
+    /** Board Member, Timeline Item and Achievement routes. **/
+
 });
 
 /** Deletes the image. **/

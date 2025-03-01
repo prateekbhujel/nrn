@@ -45,6 +45,7 @@
             'name' => 'description',
             'label' => 'Description',
             'type' => 'textarea',
+            'class' => 'summernote',
             'placeholder' => 'Enter event description',
             'required' => true,
         ],

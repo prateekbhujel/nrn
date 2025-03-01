@@ -30,7 +30,7 @@ class EventController extends Controller
         $data = $request->except('banner');
     
         if ($request->hasFile('banner')) {
-            $filePath = uploadImage($request->file('banner'));
+            $filePath = uploadImage($request->file('banner'), 'events');
             $data['banner'] = $filePath;
         }
     
@@ -61,7 +61,7 @@ class EventController extends Controller
             if ($event->banner) {
                 deleteImages($event->banner);
             }
-            $filePath = uploadImage($request->file('banner'));
+            $filePath = uploadImage($request->file('banner'), 'events');
             $data['banner'] = $filePath;
         }
     
