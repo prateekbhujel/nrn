@@ -25,6 +25,11 @@
           <i class="fas fa-pencil-alt"></i><span>Manage News</span>
         </a>
       </li>
+      <li class="{{ Request::routeIs('admin.projects.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.projects.index') }}">
+          <i class="fas fa-pencil-alt"></i><span>Manage Projects</span>
+        </a>
+      </li>
 
       <li class="menu-header">Starter</li>
       <li class="dropdown">

@@ -24,7 +24,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     /** Event, project and News routes. **/
     Route::resource('events', EventController::class);
     Route::resource('news', NewsController::class);
-    Route::resource('project', ProjectController::class);
+    Route::resource('projects', ProjectController::class);
+    Route::get('projects/{project}/gallery/create', [ProjectController::class, 'galleryCreate'])->name('projects.gallery.create');
+    Route::post('projects/{project}/gallery', [ProjectController::class, 'galleryStore'])->name('projects.gallery.store');
 });
 
 /** Deletes the image. **/
