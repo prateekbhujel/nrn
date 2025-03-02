@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Backend\AchievementController;
+use App\Http\Controllers\Backend\BoardMemberController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProjectController;
+use App\Http\Controllers\Backend\TimelineItemController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -33,7 +36,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('gallery', GalleryController::class);
 
     /** Board Member, Timeline Item and Achievement routes. **/
-
+    Route::resource('board-members', BoardMemberController::class);
+    Route::resource('timeline-items', TimelineItemController::class);
+    Route::resource('achievements', AchievementController::class);
 });
 
 /** Deletes the image. **/
