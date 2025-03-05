@@ -21,7 +21,7 @@
                         'name' => 'banner',
                         'label' => 'Image',
                         'type' => 'file',
-                        'mutiple' => true,
+                        'multiple' => true,
                     ],
                     [
                         'name' => 'title',
