@@ -22,9 +22,16 @@ class BoardMemberDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addIndexedColumn()
-            ->addColumn('action', 'boardmember.action')
-            ->setRowId('id');
+            ->addColumn('action', function ($board) {
+                return view('admin.board_members.partials.actions', compact('board'))->render();
+
+        })->editColumn('image_path', function ($board) {
+            return $board->image_path 
+                ? '<img src="' . asset('storage/' . $board->image_path) . '" alt="board memeber image" class="img-thumbnail" width="80">'
+                : 'No Image';
+        })->
+        rawColumns(['action','image_path'])
+        ->setRowId('id');
     }
 
     /**
@@ -44,17 +51,7 @@ class BoardMemberDataTable extends DataTable
                     ->setTableId('boardmember-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+                    ->orderBy(0);
     }
 
     /**
@@ -63,10 +60,11 @@ class BoardMemberDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('id')->title('ID'),
+            Column::make('name'),
+            Column::make('position'),
+            Column::make('type'),
+            Column::make('image_path')->title('image'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

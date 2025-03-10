@@ -22,7 +22,14 @@ class TimelineItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'timelineitem.action')
+            ->editColumn('image_path',function($timeline){
+                return $timeline->image_path ? '<img src="' . asset('storage/' . $timeline->image_path) . '" alt="timeline image" class="img-thumbnail" width="80">'
+                    : 'No Image';
+            })
+            ->addColumn('action',function($timeline){
+                return view('admin.timeline_items.partials.actions',compact('timeline'))->render();
+            })
+            ->rawColumns(['action','image_path'])
             ->setRowId('id');
     }
 
@@ -43,17 +50,7 @@ class TimelineItemDataTable extends DataTable
                     ->setTableId('timelineitem-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+                    ->orderBy(0);
     }
 
     /**
@@ -62,15 +59,17 @@ class TimelineItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('image_path')->title('image_path')->exportable(false)->printable(false),
+            Column::make('title')->title('Title'),
+            Column::make('year')->title('year'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            // Column::make('created_at'),
+            // Column::make('updated_at'),
         ];
     }
 

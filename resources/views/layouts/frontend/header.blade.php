@@ -40,7 +40,7 @@
                     <li class="nav-item"><a class="nav-link {{request()->routeIs('about')? 'active': ''}}" href="{{route('about')}}">About Us</a></li>
                     <li class="nav-item"><a class="nav-link {{request()->routeIs('history')? 'active': ''}}" href="{{route('history')}}">History</a></li>
                     <li class="nav-item"><a class="nav-link {{request()->routeIs('board')? 'active': ''}}" href="{{route('board')}}">Board Members</a></li>
-                    <li class="nav-item"><a class="nav-link " href="projects.html">Our Projects</a></li>
+                    <li class="nav-item"><a class="nav-link {{request()->routeIs('project')? 'active': ''}}" href="{{route('project')}}">Our Projects</a></li>
                     <li class="nav-item"><a class="nav-link {{request()->routeIs('news-events')? 'active': ''}}" href="{{route('news-events')}}">News & Events</a></li>
                     <li class="nav-item"><a class="nav-link {{request()->routeIs('contact')? 'active': ''}}" href="{{route('contact')}}">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{'gallery'}}">Gallery</a></li>

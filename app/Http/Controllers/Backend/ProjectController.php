@@ -35,7 +35,7 @@ class ProjectController extends Controller
             $data['main_image'] = $filePath;
         }
 
-        $data['slug'] = \Illuminate\Support\Str::slug($request->title);
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title).'-'.time();
         Project::create($data);
 
         return redirect()->route('admin.projects.index')

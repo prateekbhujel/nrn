@@ -36,9 +36,12 @@
         [
             'name' => 'type',
             'label' => 'Type',
-            'type' => 'text',
+            'type' => 'select',
             'required' => true,
-            'placeholder' => 'Enter type',
+            'options' => [
+                'executive' => 'Executive', 
+                'advisory' => 'Advisory'
+            ],
         ],
         [
             'name' => 'image_path',
@@ -65,9 +68,9 @@
     @endphp
 
     <x-cms-form 
-        action="{{ route('admin.board-members.update', $board_member->id) }}" method="PATCH"
+        action="{{ route('admin.board-members.update', $board->id) }}" method="PATCH"
         :fields="$fields"
-        :model="$board_member"
+        :model="$board"
         submitText="Create"
         buttonPosition="right"
     />

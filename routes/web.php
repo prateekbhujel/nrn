@@ -28,7 +28,13 @@ Route::get('/board',[BoardControllerler::class,'index'])->name('board');
 Route::get('/contact',[ContactControllerler::class,'index'])->name('contact');
 Route::get('/gallery',[FrontGalleryController::class,'index'])->name('gallery');
 Route::get('/history',[HistoryController::class,'index'])->name('history');
-Route::get('/project',[FrontProjectController::class,'index'])->name('project');
+
+Route::group(['prefix'=>'project'],function(){
+    Route::get('/',[FrontProjectController::class,'index'])->name('project');
+    Route::get('/project/{slug}',[FrontProjectController::class,'show_project'])->name('project.show_project');
+
+});
+
 Route::group(['prefix'=>'news-events'],function(){
     Route::get('/',[NewsEventControllerler::class,'index'])->name('news-events');
     Route::get('/event/{slug}',[NewsEventControllerler::class,'show_event'])->name('news-events.show_event');
