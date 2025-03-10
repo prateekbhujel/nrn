@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->id();
-            $table->string('translation_key'); // e.g., sidebar.dashboard, form.title
-            $table->string('locale');          // e.g., en, fr, np
+
+            $table->unsignedBigInteger('translatable_id')->nullable();
+            $table->string('translation_key')->nullable(); // e.g., sidebar.dashboard, form.title
+            $table->string('locale')->nullable();          // e.g., en, fr, np
             $table->text('value');             // The translated text
             $table->timestamps();
 

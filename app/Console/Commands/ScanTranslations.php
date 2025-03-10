@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use App\Models\Translation;
+use App\Models\Language;
 
 class ScanTranslations extends Command
 {
@@ -13,10 +14,9 @@ class ScanTranslations extends Command
 
     public function handle()
     {
-        // Directories to scan
         $directories = [
             resource_path('views'),
-            app_path(), // add more if needed
+            app_path(),
         ];
 
         $pattern = '/db_trans\([\'"]([^\'"]+)[\'"]\)/';
@@ -33,27 +33,33 @@ class ScanTranslations extends Command
                 }
             }
         }
+
         $foundKeys = array_unique($foundKeys);
         $this->info('Found keys: ' . count($foundKeys));
 
-        $defaultLocale = config('app.fallback_locale', 'en');
+        $languages = Language::pluck('locale')->toArray();
         $newKeysCount = 0;
+
         foreach ($foundKeys as $key) {
-            // Check if the key exists for the default locale
-            $exists = Translation::where('translation_key', $key)
-                ->where('locale', $defaultLocale)
-                ->exists();
-            if (! $exists) {
-                Translation::create([
-                    'translation_key' => $key,
-                    'locale'          => $defaultLocale,
-                    'value'           => ucfirst(str_replace('.', ' ', $key)), // e.g., "Form Title"
-                ]);
-                $newKeysCount++;
-                $this->info("Added key: {$key}");
+            foreach ($languages as $locale) {
+                $exists = Translation::where('translation_key', $key)
+                    ->where('locale', $locale)
+                    ->exists();
+
+                if (!$exists) {
+                    Translation::create([
+                        'translation_key' => $key,
+                        'locale'          => $locale,
+                        'value'           => ucfirst(str_replace('.', ' ', $key)), 
+                    ]);
+                    $newKeysCount++;
+                    $this->info("Added key: {$key} for locale: {$locale}");
+                }
             }
         }
+
         $this->info("Scanning complete. {$newKeysCount} new keys added.");
     }
 }
+
 

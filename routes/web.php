@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\BoardMemberController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\GalleryController;
+use App\Http\Controllers\Backend\LanguageController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProjectController;
@@ -59,9 +60,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     /** Lanaguegs and Translations routes. **/
     Route::get('trans', [TranslationController::class, 'index'])->name('trans.index');
+    Route::post('trans-scan', [TranslationController::class, 'scanTranslations'])->name('trans.scan');
     Route::put('trans/{id}', [TranslationController::class, 'update'])->name('trans.update');
-
+    Route::resource('languages', LanguageController::class);
 });
+
+/** Global Languages Functions. **/ 
+Route::post('/set-locale', [LanguageController::class, 'setLocale'])->name('setLocale');
 
 /** Deletes the image. **/
 Route::post('/ajax/file-delete', function (Request $request) {

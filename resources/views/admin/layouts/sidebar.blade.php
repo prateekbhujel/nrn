@@ -49,6 +49,13 @@
         </a>
       </li>
 
+      <li class="{{ Request::routeIs('admin.languages.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.languages.index') }}">
+          <i class="fas fa-language"></i>
+          <span>Manage Languages</span>
+        </a>
+      </li>
+
       <!-- Organization Dropdown for Board Members, Timeline & Achievements -->
       <li class="dropdown {{ Request::routeIs('admin.board-members.*') || Request::routeIs('admin.timeline-items.*') || Request::routeIs('admin.achievements.*') ? 'active' : '' }}">
         <a href="#" class="nav-link has-dropdown">
