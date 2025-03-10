@@ -22,7 +22,7 @@
                     [
                         'name' => 'year',
                         'label' => 'Year',
-                        'type' => 'number',
+                        'type' => 'text',
                         'required' => true,
                         'placeholder' => 'Enter year',
                     ],
@@ -50,8 +50,8 @@
                 ];
             @endphp
 
-            <x-cms-form action="{{ route('admin.timeline-items.update', $timeline_item->id) }}"
-                method="PATCH" :model="$timeline_item" :fields="$fields" submitText="Create Timeline Item"
+            <x-cms-form action="{{route('admin.timeline-items.update',$timeline->id)}}"
+                method="PATCH" :model="$timeline" :fields="$fields" submitText="Create Timeline Item"
                 buttonPosition="right" />
         </div>
     </div>

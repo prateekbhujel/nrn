@@ -27,49 +27,24 @@
 
     <!-- Timeline Section -->
     <section class="section bg-light">
-        <div class="container">
-            <div class="timeline">
+    <div class="container">
+        <div class="timeline">
+            @foreach($history as $item)
                 <div class="timeline-item">
-                    <h3>2000 - Foundation</h3>
-                    <div class="card-img-placeholder mb-3">Historical Image (400x300)</div>
-                    <p>NRB Organization was established with the vision of creating sustainable development in Nepal.
-                    </p>
+                    <h3>{{ $item->year }} - {{ $item->title }}</h3>
+                    <div class="card-img-placeholder mb-3">
+                        @if($item->image_path)
+                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}"  height="200">
+                        @else
+                            Historical Image (400x300)
+                        @endif
+                    </div>
+                    <p>{!! $item->description !!}</p>
                 </div>
-
-                <div class="timeline-item">
-                    <h3>2005 - First Major Project</h3>
-                    <div class="card-img-placeholder mb-3">Historical Image (400x300)</div>
-                    <p>Launched our first major community development project in rural Nepal, impacting over 1000
-                        families.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3>2010 - Expansion</h3>
-                    <div class="card-img-placeholder mb-3">Historical Image (400x300)</div>
-                    <p>Expanded operations to five additional districts and established partnerships with international
-                        organizations.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3>2015 - Earthquake Response</h3>
-                    <div class="card-img-placeholder mb-3">Historical Image (400x300)</div>
-                    <p>Led major relief and reconstruction efforts following the devastating earthquake.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3>2020 - Digital Transformation</h3>
-                    <div class="card-img-placeholder mb-3">Historical Image (400x300)</div>
-                    <p>Implemented digital solutions to enhance project management and community engagement.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3>2025 - Present Day</h3>
-                    <div class="card-img-placeholder mb-3">Historical Image (400x300)</div>
-                    <p>Currently operating in 20 districts with over 50 active projects and 100,000+ beneficiaries.</p>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Achievement Highlights -->
     <section class="section">
