@@ -9,12 +9,28 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProjectController;
 use App\Http\Controllers\Backend\TimelineItemController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\BoardControllerler;
+use App\Http\Controllers\Frontend\ContactControllerler;
+use App\Http\Controllers\Frontend\GalleryControllerler as FrontGalleryController;
+use App\Http\Controllers\Frontend\HistoryController;
+use App\Http\Controllers\Frontend\ProjectController as FrontProjectController ;
+use App\Http\Controllers\Frontend\NewsEventControllerler;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 /** Frontend Routes **/
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/about',[AboutController::class,'index'])->name('about');
+Route::get('/board',[BoardControllerler::class,'index'])->name('board');
+Route::get('/contact',[ContactControllerler::class,'index'])->name('contact');
+Route::get('/gallery',[FrontGalleryController::class,'index'])->name('gallery');
+Route::get('/history',[HistoryController::class,'index'])->name('history');
+Route::get('/project',[FrontProjectController::class,'index'])->name('project');
+Route::group(['prefix'=>'news-events'],function(){
+    Route::get('/',[NewsEventControllerler::class,'index'])->name('news-events');
+    Route::get('/event/{slug}',[NewsEventControllerler::class,'show_event'])->name('news-events.show_event');
 });
 
 /** Admin Routes. **/
