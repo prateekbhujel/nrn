@@ -17,6 +17,7 @@ use App\Http\Controllers\Frontend\GalleryControllerler as FrontGalleryController
 use App\Http\Controllers\Frontend\HistoryController;
 use App\Http\Controllers\Frontend\ProjectController as FrontProjectController ;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
+use App\Http\Controllers\Backend\TranslationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('board-members', BoardMemberController::class);
     Route::resource('timeline-items', TimelineItemController::class);
     Route::resource('achievements', AchievementController::class);
+
+    /** Lanaguegs and Translations routes. **/
+    Route::get('trans', [TranslationController::class, 'index'])->name('trans.index');
+    Route::put('trans/{id}', [TranslationController::class, 'update'])->name('trans.update');
+
 });
 
 /** Deletes the image. **/

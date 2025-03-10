@@ -12,7 +12,7 @@
       <li class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
           <i class="fas fa-fire"></i>
-          <span>Dashboard</span>
+          <span>{{ db_trans('sidebar.dashboard_link') }}</span>
         </a>
       </li>
 
@@ -21,13 +21,13 @@
       <li class="{{ Request::routeIs('admin.events.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.events.index') }}">
           <i class="fas fa-calendar-alt"></i>
-          <span>Manage Events</span>
+          <span>{{ db_trans('sidebar.events_link') }}</span>
         </a>
       </li>
       <li class="{{ Request::routeIs('admin.news.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.news.index') }}">
           <i class="fas fa-newspaper"></i>
-          <span>Manage News</span>
+          <span>{{ db_trans('sidebar.news_link') }}</span>
         </a>
       </li>
       <li class="{{ Request::routeIs('admin.projects.*') ? 'active' : '' }}">
@@ -40,6 +40,12 @@
         <a class="nav-link" href="{{ route('admin.gallery.index') }}">
           <i class="fas fa-images"></i>
           <span>Manage Galleries</span>
+        </a>
+      </li>
+      <li class="{{ Request::routeIs('admin.trans.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.trans.index') }}">
+          <i class="fas fa-language"></i>
+          <span>Manage Translations</span>
         </a>
       </li>
 
@@ -79,7 +85,12 @@
           <span>Layout</span>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
+          <li class="{{ Request::routeIs('admin.trans.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.trans.index') }}">
+              <i class="fas fa-images"></i>
+              <span>Manage Galleries</span>
+            </a>
+          </li>
           <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
           <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
         </ul>

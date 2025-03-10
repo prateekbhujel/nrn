@@ -54,3 +54,21 @@ function deleteImages(string|array|null $paths, string $disk = 'public'): bool
 
     return true;
 }
+
+
+if (! function_exists('db_trans')) {
+    /**
+     * Retrieve the translation for the given key based on the current locale.
+     *
+     * @param  string  $key
+     * @return string
+     */
+    function db_trans($key)
+    {
+        $locale = app()->getLocale();
+        $translation = \App\Models\Translation::where('translation_key', $key)
+            ->where('locale', $locale)
+            ->first();
+        return $translation ? $translation->value : $key;
+    }
+}
