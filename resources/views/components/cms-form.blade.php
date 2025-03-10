@@ -73,11 +73,21 @@
             @elseif (in_array($field['type'], ['date', 'datetime-local', 'time']))
                 <input type="{{ $field['type'] }}" name="{{ $field['name'] }}" id="{{ $field['name'] }}"
                     value="{{ $value }}" class="form-control {{ $class }}" {{ $required }}>
+            @elseif ($field['type'] === 'select')
+                <select name="{{ $name }}" id="{{ $field['name'] }}" class="form-control {{ $class }}" {{ $required }} {{ $multiple }}>
+                     @foreach ($field['options'] as $optionValue => $optionLabel)
+                        <option value="{{ $optionValue }}" {{ $value == $optionValue ? 'selected' : '' }}>
+                            {{ $optionLabel }}
+                        </option>
+                    @endforeach
+                </select>
             @elseif ($field['type'] === 'file')
                 @php
                     // Generate a unique ID for each file field instance.
                     $uniqueId = $field['name'] . '-' . uniqid();
                 @endphp
+
+
                 <div class="file-upload-wrapper" data-max-files="{{ $maxFiles }}"
                     data-max-size="{{ $maxFileSize }}" id="{{ $uniqueId }}"
                     @if ($model) data-model-id="{{ $model->id }}"

@@ -3,7 +3,7 @@
   <!-- Hero Section -->
   <div class="hero-placeholder">
     <div class="container">
-      <h1 class="display-4">Project: Community Development</h1>
+      <h1 class="display-4">Project: {{$project->title}}</h1>
       <p class="lead">An in-depth look at our Community Development initiative</p>
     </div>
   </div>
@@ -20,13 +20,11 @@
       <div class="row my-4">
         <div class="col-md-6">
           <!-- Main project image using a placeholder from Placehold.co -->
-          <img src="https://placehold.co/600x400?text=Project+Image" class="img-fluid" alt="Community Development Image" />
+          <img src="{{ asset('storage/' . $project->main_image) }}" class="img-fluid" alt="{{$project->title}}" />
         </div>
         <div class="col-md-6">
           <p>
-            Detailed project information goes here. Explain the background, objectives, implementation
-            strategy, and the future roadmap. Use this space to provide insights into the project’s impact,
-            milestones achieved, and testimonials if available.
+           {{$project->description}}
           </p>
         </div>
       </div>

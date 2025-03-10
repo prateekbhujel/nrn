@@ -12,37 +12,29 @@
     <div class="container">
       <h2 class="text-center mb-5">Featured Projects</h2>
       <div class="row">
-        <!-- Project Card -->
+    @foreach($project as $item)
         <div class="col-md-4">
-          <div class="card">
-            <div class="card-img-placeholder">Project Image (400x300)</div>
-            <div class="card-body">
-              <h3><a href="project-detail.html" class="text-decoration-none">Community Development</a></h3>
-              <p>Supporting local initiatives for sustainable growth and community empowerment. This project focuses on building infrastructure, creating job opportunities, and fostering local talent.</p>
+            <div class="card">
+                <div class="card-img-placeholder">
+                    @if($item->main_image)
+                        <img src="{{ asset('storage/' . $item->main_image) }}" alt="{{ $item->title }}" width="400" height="300">
+                    @else
+                        Project Image (400x300)
+                    @endif
+                </div>
+                <div class="card-body">
+                    <h3>
+                        <a href="{{ route('project.show_project', $item->slug) }}" class="text-decoration-none">
+                            {{ $item->title }}
+                        </a>
+                    </h3>
+                    <p>{{ Str::limit($item->description, 150) }}</p>
+                </div>
             </div>
-          </div>
         </div>
-        <!-- Project Card -->
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-img-placeholder">Project Image (400x300)</div>
-            <div class="card-body">
-              <h3><a href="project-detail.html" class="text-decoration-none">Education Program</a></h3>
-              <p>Providing quality education to underprivileged children by establishing community learning centers and partnering with local schools and educators.</p>
-            </div>
-          </div>
-        </div>
-        <!-- Project Card -->
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-img-placeholder">Project Image (400x300)</div>
-            <div class="card-body">
-              <h3><a href="project-detail.html" class="text-decoration-none">Healthcare Initiative</a></h3>
-              <p>Improving access to healthcare in rural areas through mobile clinics, community health workshops, and collaborations with local healthcare providers.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    @endforeach
+</div>
+
     </div>
   </section>
   @endsection

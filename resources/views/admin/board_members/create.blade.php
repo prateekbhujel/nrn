@@ -36,9 +36,12 @@
         [
             'name' => 'type',
             'label' => 'Type',
-            'type' => 'text',
+            'type' => 'select',
             'required' => true,
-            'placeholder' => 'Enter type',
+            'options' => [
+                'executive' => 'Executive', 
+                'advisory' => 'Advisory'
+            ],
         ],
         [
             'name' => 'image_path',
