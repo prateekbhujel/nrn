@@ -38,6 +38,7 @@ Route::group(['prefix'=>'project'],function(){
 Route::group(['prefix'=>'news-events'],function(){
     Route::get('/',[NewsEventControllerler::class,'index'])->name('news-events');
     Route::get('/event/{slug}',[NewsEventControllerler::class,'show_event'])->name('news-events.show_event');
+    Route::get('/news/{slug}',[NewsEventControllerler::class,'show_news'])->name('news-events.show_news');
 });
 
 /** Admin Routes. **/

@@ -58,8 +58,8 @@ class EventController extends Controller
         ]);
     
         $event = Event::findOrFail($id);
-        $data['slug'] = Str::slug($data['title']) . '-'.time();
         $data = $request->except('banner');
+        $data['slug'] = Str::slug($data['title']) . '-'.time();
     
         if ($request->hasFile('banner')) {
             if ($event->banner) {

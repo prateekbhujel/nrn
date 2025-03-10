@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\DataTables\NewsDataTable;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -29,6 +30,7 @@ class NewsController extends Controller
         ]);
     
         $data = $request->except('banner');
+        $data['slug'] = Str::slug($data['title']). '-'.time();
     
         if ($request->hasFile('banner')) {
             $filePath = uploadImage($request->file('banner'), 'news');
@@ -58,7 +60,8 @@ class NewsController extends Controller
     
         $news = News::findOrFail($id);
         $data = $request->except('banner');
-    
+        $data['slug'] = Str::slug($data['title']). '-'.time();
+
         if ($request->hasFile('banner')) {
             if ($news->banner) {
                 deleteImages($news->banner);
