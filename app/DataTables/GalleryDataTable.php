@@ -28,10 +28,10 @@ class GalleryDataTable extends DataTable
                 return view('admin.galleries.partials.actions', compact('gallery'))->render();
             })
             ->editColumn('banner', function ($gallery) {
-                return $gallery->banner 
-                    ? '<img src="' . asset('storage/' . $gallery->banner) . '" alt="Banner" class="img-thumbnail" width="80">'
+                return $gallery->thumbnail 
+                    ? '<img src="' . asset('storage/' . $gallery->thumbnail) . '" alt="Thumbnail" class="img-thumbnail" width="80">'
                     : 'No Image';
-            })
+            })            
             ->rawColumns(['action', 'banner'])
             ->setRowId('id');
     }

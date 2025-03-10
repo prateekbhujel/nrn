@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('banner')->nullable();
             $table->string('slug')->nullable();
-            $table->timestamps();
 
+            $table->timestamps();
         });
     }
 

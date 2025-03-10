@@ -11,6 +11,9 @@
 </div>
 
 <div class="card">
+    <div class="mb-4 mr-4 ml-4 mt-4">
+        <p class="text-muted">Gallery images can be added after creating the project.</p>
+    </div>
     <div class="card-header">
         <h4>Create Project</h4>
     </div>

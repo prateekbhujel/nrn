@@ -54,7 +54,12 @@
         </a>
         <div class="row">
             @foreach($project->galleryImages as $image)
-                <div class="col-md-3">
+                <div class="col-md-3 position-relative">
+                    <!-- Delete Button -->
+                    <button class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-item" 
+                        data-url="{{ route('admin.projects.gallery.destroy', $image->id) }}">
+                        <i class="fas fa-times"></i>
+                    </button>
                     <img src="{{ asset('storage/' . $image->image_path) }}" class="img-fluid mb-2" alt="{{ $image->title }}">
                     <p>{{ $image->title ?? 'No Title' }}</p>
                 </div>

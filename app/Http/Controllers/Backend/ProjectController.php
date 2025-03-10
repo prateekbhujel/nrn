@@ -35,11 +35,11 @@ class ProjectController extends Controller
             $data['main_image'] = $filePath;
         }
 
-        $data['slug'] = \Illuminate\Support\Str::slug($request->title).'-'.time();
+        $data['slug'] = \Illuminate\Support\Str::slug($request->title) . '-' . time();
         Project::create($data);
 
         return redirect()->route('admin.projects.index')
-                         ->with('success', 'Project created successfully.');
+            ->with('success', 'Project created successfully.');
     }
 
     public function edit($id)
@@ -71,7 +71,7 @@ class ProjectController extends Controller
         $project->update($data);
 
         return redirect()->route('admin.projects.index')
-                         ->with('success', 'Project updated successfully.');
+            ->with('success', 'Project updated successfully.');
     }
 
     public function destroy($id)
@@ -88,7 +88,7 @@ class ProjectController extends Controller
         }
         $project->delete();
         return redirect()->route('admin.projects.index')
-                         ->with('success', 'Project deleted successfully.');
+            ->with('success', 'Project deleted successfully.');
     }
 
     // Gallery Management
@@ -116,6 +116,20 @@ class ProjectController extends Controller
         $project->galleryImages()->create($data);
 
         return redirect()->route('admin.projects.edit', $id)
-                         ->with('success', 'Gallery image added successfully.');
+            ->with('success', 'Gallery image added successfully.');
+    }
+
+    public function galleryDestroy($id)
+    {
+        $galleryImage = \App\Models\ProjectImage::findOrFail($id);
+        if ($galleryImage->image_path) {
+            deleteImages($galleryImage->image_path);
+        }
+        $galleryImage->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Gallery image deleted successfully.'
+        ]);
     }
 }

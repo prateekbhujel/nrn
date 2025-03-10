@@ -170,9 +170,9 @@
             <i class="fas fa-save"></i> {{ $submitText ?? $defaultSubmitText }}
         </button>
         @if ($showCancel)
-            <a href="javascript:history.back()" class="btn btn-light ml-2">
+            {{-- <button type="button" class="btn btn-light ml-2" onclick="window.history.back();">
                 <i class="fas fa-times"></i> {{ $cancelText }}
-            </a>
+            </button>         --}}
         @endif
     </div>
 

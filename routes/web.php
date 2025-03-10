@@ -16,29 +16,28 @@ use App\Http\Controllers\Frontend\BoardControllerler;
 use App\Http\Controllers\Frontend\ContactControllerler;
 use App\Http\Controllers\Frontend\GalleryControllerler as FrontGalleryController;
 use App\Http\Controllers\Frontend\HistoryController;
-use App\Http\Controllers\Frontend\ProjectController as FrontProjectController ;
+use App\Http\Controllers\Frontend\ProjectController as FrontProjectController;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
 use App\Http\Controllers\Backend\TranslationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 /** Frontend Routes **/
-Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/about',[AboutController::class,'index'])->name('about');
-Route::get('/board',[BoardControllerler::class,'index'])->name('board');
-Route::get('/contact',[ContactControllerler::class,'index'])->name('contact');
-Route::get('/gallery',[FrontGalleryController::class,'index'])->name('gallery');
-Route::get('/history',[HistoryController::class,'index'])->name('history');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/board', [BoardControllerler::class, 'index'])->name('board');
+Route::get('/contact', [ContactControllerler::class, 'index'])->name('contact');
+Route::get('/gallery', [FrontGalleryController::class, 'index'])->name('gallery');
+Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
-Route::group(['prefix'=>'project'],function(){
-    Route::get('/',[FrontProjectController::class,'index'])->name('project');
-    Route::get('/project/{slug}',[FrontProjectController::class,'show_project'])->name('project.show_project');
-
+Route::group(['prefix' => 'project'], function () {
+    Route::get('/', [FrontProjectController::class, 'index'])->name('project');
+    Route::get('/project/{slug}', [FrontProjectController::class, 'show_project'])->name('project.show_project');
 });
 
-Route::group(['prefix'=>'news-events'],function(){
-    Route::get('/',[NewsEventControllerler::class,'index'])->name('news-events');
-    Route::get('/event/{slug}',[NewsEventControllerler::class,'show_event'])->name('news-events.show_event');
+Route::group(['prefix' => 'news-events'], function () {
+    Route::get('/', [NewsEventControllerler::class, 'index'])->name('news-events');
+    Route::get('/event/{slug}', [NewsEventControllerler::class, 'show_event'])->name('news-events.show_event');
 });
 
 /** Admin Routes. **/
@@ -52,6 +51,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     /** Event, project and News routes. **/
     Route::resource('events', EventController::class);
     Route::resource('news', NewsController::class);
+    Route::delete('projects/gallery/{galleryImage}', [\App\Http\Controllers\Backend\ProjectController::class, 'galleryDestroy'])->name('projects.gallery.destroy');
     Route::resource('projects', ProjectController::class);
     Route::get('projects/{project}/gallery/create', [ProjectController::class, 'galleryCreate'])->name('projects.gallery.create');
     Route::post('projects/{project}/gallery', [ProjectController::class, 'galleryStore'])->name('projects.gallery.store');
@@ -71,7 +71,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('languages', LanguageController::class);
 });
 
-/** Global Languages Functions. **/ 
+/** Global Languages Functions. **/
 Route::post('/set-locale', [LanguageController::class, 'setLocale'])->name('setLocale');
 
 /** Deletes the image. **/
@@ -81,12 +81,20 @@ Route::post('/ajax/file-delete', function (Request $request) {
     $field      = $request->input('field');
     $file       = $request->input('file');
 
-    // If a model is provided, attempt to find and update it.
     if ($modelId && $modelClass && class_exists($modelClass)) {
         $model = app($modelClass)::find($modelId);
         if ($model) {
-            if (deleteImages($model->{$field})) {
-                $model->{$field} = null;
+            // Ensure we have an array of files.
+            $currentFiles = $model->{$field} ?: [];
+            if (!is_array($currentFiles)) {
+                $currentFiles = [$currentFiles];
+            }
+            // Find and remove the file.
+            if (($key = array_search($file, $currentFiles)) !== false) {
+                deleteImages($file); // Delete the targeted file.
+                unset($currentFiles[$key]);
+                // Re-index the array.
+                $model->{$field} = array_values($currentFiles);
                 $model->save();
                 return response()->json([
                     'success' => true,
@@ -109,5 +117,6 @@ Route::post('/ajax/file-delete', function (Request $request) {
         'message' => 'Failed to delete file.'
     ], 400);
 })->name('ajax.file-delete');
+
 
 require __DIR__ . '/auth.php';

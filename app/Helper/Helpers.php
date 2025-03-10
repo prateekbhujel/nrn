@@ -66,7 +66,8 @@ if (! function_exists('db_trans')) {
     function db_trans($key)
     {
         $locale = app()->getLocale();
-        $translation = \App\Models\Translation::where('translation_key', $key)
+        $translation = \App\Models\Translation::static()
+            ->where('translation_key', $key)
             ->where('locale', $locale)
             ->first();
         return $translation ? $translation->value : $key;

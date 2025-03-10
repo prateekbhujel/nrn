@@ -31,7 +31,7 @@ class GalleryController extends Controller
 
         if ($request->hasFile('banner')) {
             $filePaths = uploadImage($request->file('banner'), 'gallery');
-            $data['banner'] = is_array($filePaths) ? json_encode($filePaths) : $filePaths;
+            $data['banner'] = $filePaths;
         }
 
         Gallery::create($data);
@@ -53,23 +53,31 @@ class GalleryController extends Controller
             'title'       => 'nullable|min:1|max:200',
             'description' => 'nullable|min:10|max:500',
         ]);
-
+    
         $gallery = Gallery::findOrFail($id);
         $data = $request->except('banner');
-
+    
         if ($request->hasFile('banner')) {
-            if ($gallery->banner) {
-                deleteImages(json_decode($gallery->banner, true));
-            }
+            // Ensure the existing banner is an array:
+            $existing = is_array($gallery->banner)
+                ? $gallery->banner
+                : ($gallery->banner ? [$gallery->banner] : []);
+                
             $filePaths = uploadImage($request->file('banner'), 'gallery');
-            $data['banner'] = is_array($filePaths) ? json_encode($filePaths) : $filePaths;
+            if (!is_array($filePaths)) {
+                $filePaths = [$filePaths];
+            }
+            // Merge new uploads with existing images
+            $data['banner'] = array_merge($existing, $filePaths);
         }
-
+    
         $gallery->update($data);
-
+    
         return redirect()->route('admin.gallery.index')
             ->with('success', 'Item updated successfully.');
     }
+    
+    
 
     public function destroy($id)
     {
