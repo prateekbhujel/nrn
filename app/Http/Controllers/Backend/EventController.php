@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\DataTables\EventDataTable;
+use Illuminate\Support\Str;
+
 
 class EventController extends Controller
 {
@@ -28,6 +30,7 @@ class EventController extends Controller
         ]);
     
         $data = $request->except('banner');
+        $data['slug'] = Str::slug($data['title']) . '-'.time();
     
         if ($request->hasFile('banner')) {
             $filePath = uploadImage($request->file('banner'), 'events');
@@ -55,6 +58,7 @@ class EventController extends Controller
         ]);
     
         $event = Event::findOrFail($id);
+        $data['slug'] = Str::slug($data['title']) . '-'.time();
         $data = $request->except('banner');
     
         if ($request->hasFile('banner')) {

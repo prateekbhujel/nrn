@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->text('description')->nullable();
             $table->text('banner')->nullable();
-
+            $table->string('slug')->nullable();
             $table->timestamps();
 
         });
