@@ -15,7 +15,7 @@ class HomeController extends Controller
     ->take(3)
     ->get();
 
-$news = News::select('title', 'publish_date', 'description', 'slug')
+$news = News::select('title', 'publish_date', 'banner','description', 'slug')
     ->orderBy('publish_date', 'desc')
     ->take(3)
     ->get();

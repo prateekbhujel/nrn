@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\ProjectController as FrontProjectController;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
 use App\Http\Controllers\Backend\TranslationController;
 use App\Http\Controllers\Backend\AboutusController;
+use App\Http\Controllers\Backend\PhotoSliderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -67,7 +68,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('timeline-items', TimelineItemController::class);
     Route::resource('achievements', AchievementController::class);
-
+    Route::resource('photoslider',PhotoSliderController::class);
     /** Lanaguegs and Translations routes. **/
     Route::get('trans', [TranslationController::class, 'index'])->name('trans.index');
     Route::post('trans-scan', [TranslationController::class, 'scanTranslations'])->name('trans.scan');

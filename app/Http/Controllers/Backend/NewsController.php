@@ -59,9 +59,8 @@ class NewsController extends Controller
         ]);
     
         $news = News::findOrFail($id);
-        $data['slug'] = Str::slug($request->title) . '-'.time();
         $data = $request->except('banner');
-    
+        $data['slug'] = Str::slug($request->title) . '-'.time();
         if ($request->hasFile('banner')) {
             if ($news->banner) {
                 deleteImages($news->banner);

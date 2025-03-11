@@ -52,7 +52,31 @@
                             <h3>   <a href="{{ route('project.show_project', $item->slug) }}" class="text-decoration-none">
                             {{ $item->title }}
                         </a></h3>
-                            <p>{{ $project->description }}</p>
+                            <p>{!! $project->description !!}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+    <!-- Latest News -->
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Latest News</h2>
+        <div class="row">
+            @foreach($news as $item)
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('storage/' . $item->banner) }}" class="card-img-top" alt="{{ $item->title }}">
+                        <div class="card-body">
+                            <h3>
+                                <a href="{{ route('news-events.show_news' , $item->slug) }}" class="text-decoration-none">
+                                    {{ $item->title }}
+                                </a>
+                            </h3>
+                            <p class="text-muted">{{ \Carbon\Carbon::parse($item->publish_date)->format('F d, Y') }}</p>
+                            <p>{!! $item->description !!}</p>
                         </div>
                     </div>
                 </div>
@@ -61,47 +85,6 @@
     </div>
 </section>
 
-
-    <!-- Latest News -->
-    <section class="section bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Latest News</h2>
-            <div class="row">
-                <!-- News Card -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://placehold.co/400x250?text=News+Image" class="card-img-top" alt="News Image">
-                        <div class="card-body">
-                            <h3><a href="news-detail.html" class="text-decoration-none">Recent Achievement</a></h3>
-                            <p class="text-muted">February 20, 2025</p>
-                            <p>Brief description of the news item...</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- More News Cards... -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://placehold.co/400x250?text=News+Image" class="card-img-top" alt="News Image">
-                        <div class="card-body">
-                            <h3><a href="news-detail.html" class="text-decoration-none">Innovation in Action</a></h3>
-                            <p class="text-muted">February 18, 2025</p>
-                            <p>Brief description of the news item...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://placehold.co/400x250?text=News+Image" class="card-img-top" alt="News Image">
-                        <div class="card-body">
-                            <h3><a href="news-detail.html" class="text-decoration-none">Milestone Reached</a></h3>
-                            <p class="text-muted">February 15, 2025</p>
-                            <p>Brief description of the news item...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Upcoming Events Slider -->
 <section class="section">

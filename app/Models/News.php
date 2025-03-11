@@ -11,31 +11,5 @@ class News extends Model
     use HasFactory, Translatable;
 
     protected $fillable = ['title', 'publish_date', 'description', 'banner', 'slug'];
-    protected $translatable = ['title', 'description'];
-
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        if ($result) {
-            foreach ($this->translatable as $field) {
-                if (isset($this->attributes[$field])) {
-                    $this->setTranslatedAttribute($field, $this->attributes[$field]);
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    public function getTitleAttribute($value)
-    {
-        return $this->getTranslatedAttribute('title');
-    }
-
-    public function getDescriptionAttribute($value)
-    {
-        return $this->getTranslatedAttribute('description');
-    }
-
+   
 }
