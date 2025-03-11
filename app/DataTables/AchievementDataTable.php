@@ -22,7 +22,11 @@ class AchievementDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'achievement.action')
+            ->addColumn('action', function($achivement){
+                return view('admin.achievements.partials.actions',compact('achivement'))->render();
+            })
+            ->rawColumns(['action'])
+
             ->setRowId('id');
     }
 
@@ -44,16 +48,7 @@ class AchievementDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+                    ->orderBy(0);
     }
 
     /**
@@ -62,15 +57,14 @@ class AchievementDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('title'),
+            Column::make('value'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 

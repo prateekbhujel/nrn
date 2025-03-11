@@ -56,6 +56,13 @@
         </a>
       </li>
 
+      <li class="{{ Request::routeIs('admin.aboutus') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.aboutus') }}">
+        <i class="fas fa-info"></i>
+          <span>About us</span>
+        </a>
+      </li>
+
       <!-- Organization Dropdown for Board Members, Timeline & Achievements -->
       <li class="dropdown {{ Request::routeIs('admin.board-members.*') || Request::routeIs('admin.timeline-items.*') || Request::routeIs('admin.achievements.*') ? 'active' : '' }}">
         <a href="#" class="nav-link has-dropdown">

@@ -19,6 +19,7 @@ use App\Http\Controllers\Frontend\HistoryController;
 use App\Http\Controllers\Frontend\ProjectController as FrontProjectController;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
 use App\Http\Controllers\Backend\TranslationController;
+use App\Http\Controllers\Backend\AboutusController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,8 @@ Route::group(['prefix' => 'project'], function () {
 Route::group(['prefix' => 'news-events'], function () {
     Route::get('/', [NewsEventControllerler::class, 'index'])->name('news-events');
     Route::get('/event/{slug}', [NewsEventControllerler::class, 'show_event'])->name('news-events.show_event');
+    Route::get('/news/{slug}', [NewsEventControllerler::class, 'show_news'])->name('news-events.show_news');
+
 });
 
 /** Admin Routes. **/
@@ -61,6 +64,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     /** Board Member, Timeline Item and Achievement routes. **/
     Route::resource('board-members', BoardMemberController::class);
+
     Route::resource('timeline-items', TimelineItemController::class);
     Route::resource('achievements', AchievementController::class);
 
@@ -69,6 +73,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('trans-scan', [TranslationController::class, 'scanTranslations'])->name('trans.scan');
     Route::put('trans/{id}', [TranslationController::class, 'update'])->name('trans.update');
     Route::resource('languages', LanguageController::class);
+
+    /** about us routes **/ 
+    Route::group(['prefix'=>'aboutus'], function () {
+        Route::get('/', [AboutusController::class, 'index'])->name('aboutus');
+        Route::post('/save', [AboutusController::class, 'save'])->name('aboutus.save');
+    });
+    
 });
 
 /** Global Languages Functions. **/

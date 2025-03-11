@@ -46,36 +46,22 @@
     </div>
 </section>
 
-    <!-- Achievement Highlights -->
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center mb-5">Key Achievements</h2>
-            <div class="row">
+<section class="section">
+    <div class="container">
+        <h2 class="text-center mb-5">Key Achievements</h2>
+        <div class="row">
+            @foreach ($achievements as $achievement)
                 <div class="col-md-4">
                     <div class="card text-center">
                         <div class="card-body">
-                            <h3 class="display-4 mb-3">100K+</h3>
-                            <p>Lives Impacted</p>
+                            <h3 class="display-4 mb-3">{{ $achievement->value }}</h3>
+                            <p>{{ $achievement->title }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h3 class="display-4 mb-3">500+</h3>
-                            <p>Projects Completed</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h3 class="display-4 mb-3">20</h3>
-                            <p>Districts Covered</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
+
 @endsection

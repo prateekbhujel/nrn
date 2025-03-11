@@ -1,8 +1,9 @@
-<a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-primary">
+<a href="{{ route('admin.achievements.edit', $achivement->id) }}" class="btn btn-sm btn-primary">
     <i class="fas fa-edit"></i>
+    
 </a>
 
-    <a href="{{ route('admin.events.destroy', $event->id) }}" id="delete" class="btn btn-sm btn-danger delete-item" data-url="{{ route('admin.events.destroy', $event->id) }}">
+    <a href="{{ route('admin.achievements.destroy', $achivement->id) }}" id="delete" class="btn btn-sm btn-danger delete-item" data-url="{{ route('admin.achievements.destroy', $achivement->id) }}">
         <i class="fas fa-trash"></i>
     </a>
 </form>

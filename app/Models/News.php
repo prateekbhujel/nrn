@@ -10,9 +10,7 @@ class News extends Model
 {
     use HasFactory, Translatable;
 
-    protected $fillable = [
-        'title', 'publish_date', 'description', 'banner'
-    ];
+    protected $fillable = ['title', 'publish_date', 'description', 'banner', 'slug'];
     protected $translatable = ['title', 'description'];
 
     public function save(array $options = [])

@@ -79,10 +79,9 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         if ($event->banner) {
-            deleteImages($event->banner);
+        deleteImages($event->banner);
         }
         $event->delete();
-        return redirect()->route('admin.events.index')
-                         ->with('success', 'Event deleted successfully.');
+        return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully.');
     }
 }

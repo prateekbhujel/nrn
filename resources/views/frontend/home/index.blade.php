@@ -39,49 +39,28 @@
         </button>
     </div>
 
-    <!-- Featured Projects -->
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center mb-5">Our Projects</h2>
-            <div class="row">
-                <!-- Project Card -->
+  <!-- Featured Projects -->
+<section class="section">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Projects</h2>
+        <div class="row">
+            @foreach ($projects as $project)
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="https://placehold.co/400x300?text=Project+Image" class="card-img-top"
-                            alt="Project Image">
+                        <img src="{{ asset('storage/' . $project->main_image) }}" class="card-img-top" alt="{{ $project->title }}">
                         <div class="card-body">
-                            <h3><a href="project-detail.html" class="text-decoration-none">Community Development</a>
-                            </h3>
-                            <p>Supporting local initiatives for sustainable growth</p>
+                            <h3>   <a href="{{ route('project.show_project', $item->slug) }}" class="text-decoration-none">
+                            {{ $item->title }}
+                        </a></h3>
+                            <p>{{ $project->description }}</p>
                         </div>
                     </div>
                 </div>
-                <!-- Project Card -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://placehold.co/400x300?text=Project+Image" class="card-img-top"
-                            alt="Project Image">
-                        <div class="card-body">
-                            <h3><a href="project-detail.html" class="text-decoration-none">Education Program</a></h3>
-                            <p>Providing quality education to underprivileged children</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project Card -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://placehold.co/400x300?text=Project+Image" class="card-img-top"
-                            alt="Project Image">
-                        <div class="card-body">
-                            <h3><a href="project-detail.html" class="text-decoration-none">Healthcare Initiative</a>
-                            </h3>
-                            <p>Improving access to healthcare in rural areas</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Latest News -->
     <section class="section bg-light">
