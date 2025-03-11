@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\DataTables\NewsDataTable;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -29,7 +30,8 @@ class NewsController extends Controller
         ]);
     
         $data = $request->except('banner');
-    
+        $data['slug'] = Str::slug($data['title']) . '-'.time();
+
         if ($request->hasFile('banner')) {
             $filePath = uploadImage($request->file('banner'), 'news');
             $data['banner'] = $filePath;
@@ -57,6 +59,7 @@ class NewsController extends Controller
         ]);
     
         $news = News::findOrFail($id);
+        $data['slug'] = Str::slug($request->title) . '-'.time();
         $data = $request->except('banner');
     
         if ($request->hasFile('banner')) {
@@ -69,8 +72,7 @@ class NewsController extends Controller
     
         $news->update($data);
     
-        return redirect()->route('admin.news.index')
-                         ->with('success', 'News updated successfully.');
+        return redirect()->route('admin.news.index')->with('success', 'News updated successfully.');
     }
 
     public function destroy($id)

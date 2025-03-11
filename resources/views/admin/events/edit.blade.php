@@ -18,6 +18,11 @@
     @php
     $fields = [
         [
+          'name' =>'id'
+          'type'=>'text',
+          'hidden'=>
+        ],
+        [
             'name' => 'banner',
             'label' => 'Banner Image',
             'type' => 'file',

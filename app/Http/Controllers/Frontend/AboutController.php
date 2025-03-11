@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Aboutus;
 
 class AboutController extends Controller
 {
     function index(){
-        
-        return view('frontend.about.index');
+        $aboutus = Aboutus::get()->first();
+        $data = ['aboutus'=> $aboutus];
+        return view('frontend.about.index',$data);
     }
 }

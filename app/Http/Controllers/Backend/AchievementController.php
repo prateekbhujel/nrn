@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\TimelineItemDataTable;
+use App\DataTables\AchievementDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Achievement;
 
 class AchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(TimelineItemDataTable $dataTable)
+    public function index(AchievementDataTable $dataTable)
     {
         return $dataTable->render('admin.achievements.index');
     }
@@ -29,23 +30,24 @@ class AchievementController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'title' => 'required',
+            'value'=>'required', 
+        ]);
+        $data = $request->all();
+        Achievement::create($data);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('admin.achievements.index')->with('success','Achivement created successfully. ');
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( $id)
     {
-        //
+        $achievement = Achievement::findOrFail($id);
+        return view('admin.achievements.edit',compact('achievement'));
     }
 
     /**
@@ -53,7 +55,14 @@ class AchievementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'value'=>'required', 
+        ]);
+        $achievement = Achievement::findOrFail($id);
+        $data = $request->all();
+        $achievement->update($data);
+        return redirect()->route('admin.achievements.index')->with('success','Achievement updated successfully');
     }
 
     /**
@@ -61,6 +70,8 @@ class AchievementController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $achievement = Achievement::findOrFail($id);
+        $achievement->delete();
+        return redirect()->route('admin.achievements.index')->with('success', 'Achievement deleted successfully.');
     }
 }
