@@ -1,22 +1,22 @@
 @extends('admin.layouts.master')
-
-@section('title', 'Manage Langauges')
+@section('title', ' Manage Photo Slider')
 
 @section('content')
 <div class="section-header">
     <div class="section-header-back">
     </div>
-    <h1>Languages Lists</h1>
-
-  </div>
+    <h1> Photo Slider List</h1>
+</div>
 <div class="container">
   <div class="card">
     <div class="card-header">
-        <h4>Manage Language</h4>
+        <h4>Manage Photo Slider</h4>
         <div class="card-header-action">
-          <a href="{{ route('admin.languages.create') }}" class="btn btn-success"><i class="fas fa-plus me-2"> Add New Language</i></a>
+        <a href="{{ route('admin.photoslider.create') }}" class="btn btn-success">
+        <i class="fas fa-plus me-2"></i> Create New Photo Slider
+          </a>
         </div>
-      </div>
+    </div>
     <div class="card-body">
       {{ $dataTable->table() }}
     </div>

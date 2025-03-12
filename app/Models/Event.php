@@ -1,40 +1,13 @@
 <?php
-
 namespace App\Models;
 
-use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends Model
 {
-    use HasFactory, Translatable;
+    use HasFactory;
 
     protected $fillable = ['title', 'event_date', 'location', 'description', 'banner', 'slug'];
-    protected $translatable = ['title', 'description'];
 
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        if ($result) {
-            foreach ($this->translatable as $field) {
-                if (isset($this->attributes[$field])) {
-                    $this->setTranslatedAttribute($field, $this->attributes[$field]);
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    public function getTitleAttribute($value)
-    {
-        return $this->getTranslatedAttribute('title');
-    }
-
-    public function getDescriptionAttribute($value)
-    {
-        return $this->getTranslatedAttribute('description');
-    }
 }

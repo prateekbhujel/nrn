@@ -15,12 +15,34 @@
         <h4>Edit Project</h4>
     </div>
     <div class="card-body">
-        @php
+    @php
             $fields = [
                 [
                     'name' => 'main_image',
                     'label' => 'Main Image',
                     'type' => 'file',
+                    'required' => true,
+                ],
+                [
+                'name' => 'sub_motto',
+                'label' => 'Sub motto',
+                'type' => 'text',
+                'required' => true,
+                'placeholder' => 'Enter Sub motto',
+                ],
+                [
+                'name' => 'project_title',
+                'label' => 'Project Title',
+                'type' => 'text',
+                'required' => true,
+                'placeholder' => 'Enter About title',
+
+                ],
+                [
+                    'name' => 'project_description',
+                    'label' => 'Project About Description',
+                    'type' => 'textarea',
+                    'required' => true,
                 ],
                 [
                     'name' => 'title',
@@ -35,6 +57,7 @@
                     'type' => 'textarea',
                     'required' => true,
                 ],
+               
             ];
         @endphp
 

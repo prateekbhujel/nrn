@@ -27,6 +27,27 @@
                     'required' => true,
                 ],
                 [
+                'name' => 'sub_motto',
+                'label' => 'Sub motto',
+                'type' => 'text',
+                'required' => true,
+                'placeholder' => 'Enter Sub motto',
+                ],
+                [
+                'name' => 'project_title',
+                'label' => 'Project Title',
+                'type' => 'text',
+                'required' => true,
+                'placeholder' => 'Enter About title',
+
+                ],
+                [
+                    'name' => 'project_description',
+                    'label' => 'Project About Description',
+                    'type' => 'textarea',
+                    'required' => true,
+                ],
+                [
                     'name' => 'title',
                     'label' => 'Title',
                     'type' => 'text',
@@ -39,6 +60,7 @@
                     'type' => 'textarea',
                     'required' => true,
                 ],
+               
             ];
         @endphp
 

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('photo_sliders', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('name');         // e.g., English, French, Nepali
-            $table->string('locale');       // e.g., en, fr, np, ja
-            $table->string('icon')->nullable(); // e.g., "fas fa-flag", or any FontAwesome icon class
-
             $table->timestamps();
+            $table->string('main_title')->nullable();
+            $table->string('sub_title')->nullable();
+            $table->string('category')->nullable();
+            $table->string('main_image')->nullable();
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('photo_sliders');
     }
 };

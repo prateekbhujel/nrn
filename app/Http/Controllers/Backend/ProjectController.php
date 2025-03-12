@@ -26,6 +26,9 @@ class ProjectController extends Controller
             'title' => 'required',
             'description' => 'required',
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'project_title'=>'required',
+            'project_description'=>'required',
+
         ]);
 
         $data = $request->except('main_image');

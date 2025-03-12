@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class PhotoSlider extends Model
 {
+    protected $fillable = ['main_title','sub_title','category','main_image'];
     use HasFactory;
-
-    protected $fillable = ['title', 'publish_date', 'description', 'banner', 'slug'];
-   
 }

@@ -10,8 +10,9 @@ use App\Models\News;
 class NewsEventControllerler extends Controller
 {
     function index(){
+        $news =  News::select('title', 'publish_date', 'description', 'slug','banner')->get();
         $events =Event::select('title','event_date','location','description','banner','slug')->get();
-        $data = ['events'=>$events];
+        $data = ['events'=>$events,'news'=> $news ];
         return view('frontend.event-news.index',$data);
     }
 
@@ -24,7 +25,7 @@ class NewsEventControllerler extends Controller
 
     function show_news($slug)
     {
-        $news =  News::select('title', 'publish_date', 'description', 'slug')->where('slug',$slug)->first();
+        $news =  News::select('title', 'publish_date', 'description', 'slug','banner')->where('slug',$slug)->first();
         $data = ['news'=>$news];
         return view('frontend.event-news.inner-news',$data);
     }

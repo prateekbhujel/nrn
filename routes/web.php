@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\ProjectController as FrontProjectController;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
 use App\Http\Controllers\Backend\TranslationController;
 use App\Http\Controllers\Backend\AboutusController;
+use App\Http\Controllers\Backend\PhotoSliderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -28,8 +29,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/board', [BoardControllerler::class, 'index'])->name('board');
 Route::get('/contact', [ContactControllerler::class, 'index'])->name('contact');
-Route::get('/gallery', [FrontGalleryController::class, 'index'])->name('gallery');
 Route::get('/history', [HistoryController::class, 'index'])->name('history');
+
+Route::group(['prefix'=>'gallery'],function(){
+    Route::get('/', [FrontGalleryController::class, 'index'])->name('gallery');
+    Route::get('/{slug}', [FrontGalleryController::class, 'innerGallery'])->name('gallery.innerGallery');
+
+});
+
 
 Route::group(['prefix' => 'project'], function () {
     Route::get('/', [FrontProjectController::class, 'index'])->name('project');
@@ -67,12 +74,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('timeline-items', TimelineItemController::class);
     Route::resource('achievements', AchievementController::class);
-
-    /** Lanaguegs and Translations routes. **/
-    Route::get('trans', [TranslationController::class, 'index'])->name('trans.index');
-    Route::post('trans-scan', [TranslationController::class, 'scanTranslations'])->name('trans.scan');
-    Route::put('trans/{id}', [TranslationController::class, 'update'])->name('trans.update');
-    Route::resource('languages', LanguageController::class);
+    Route::resource('photoslider',PhotoSliderController::class);
+   
 
     /** about us routes **/ 
     Route::group(['prefix'=>'aboutus'], function () {
@@ -82,8 +85,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     
 });
 
-/** Global Languages Functions. **/
-Route::post('/set-locale', [LanguageController::class, 'setLocale'])->name('setLocale');
+
 
 /** Deletes the image. **/
 Route::post('/ajax/file-delete', function (Request $request) {

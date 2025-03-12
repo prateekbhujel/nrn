@@ -9,51 +9,29 @@
   </div>
 
   <!-- Latest News Section -->
-  <section class="section">
+  <section class="section bg-light">
     <div class="container">
-      <h2 class="text-center mb-5">Latest News</h2>
-      <div class="row">
-        <!-- News Card -->
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-img-placeholder">News Image (400x250)</div>
-            <div class="card-body">
-              <h3>
-                <a href="news-detail.html" class="text-decoration-none">News Title 1</a>
-              </h3>
-              <p class="text-muted">February 20, 2025</p>
-              <p>Summary of the news item goes here...</p>
-            </div>
-          </div>
+        <h2 class="text-center mb-5">Latest News</h2>
+        <div class="row">
+            @foreach($news as $item)
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('storage/' . $item->banner) }}" class="card-img-top" alt="{{ $item->title }}">
+                        <div class="card-body">
+                            <h3>
+                                <a href="{{ route('news-events.show_news' , $item->slug) }}" class="text-decoration-none">
+                                    {{ $item->title }}
+                                </a>
+                            </h3>
+                            <p class="text-muted">{{ \Carbon\Carbon::parse($item->publish_date)->format('F d, Y') }}</p>
+                            <p>{!! $item->description !!}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
-        <!-- Repeat similar cards as needed -->
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-img-placeholder">News Image (400x250)</div>
-            <div class="card-body">
-              <h3>
-                <a href="news-detail.html" class="text-decoration-none">News Title 2</a>
-              </h3>
-              <p class="text-muted">February 18, 2025</p>
-              <p>Summary of the news item goes here...</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-img-placeholder">News Image (400x250)</div>
-            <div class="card-body">
-              <h3>
-                <a href="news-detail.html" class="text-decoration-none">News Title 3</a>
-              </h3>
-              <p class="text-muted">February 15, 2025</p>
-              <p>Summary of the news item goes here...</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
   <!-- Upcoming Events Section -->
   <section class="section bg-light">
