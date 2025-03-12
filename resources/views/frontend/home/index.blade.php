@@ -3,41 +3,46 @@
 @section('main-content')
     <!-- Hero Section with Carousel -->
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://placehold.co/1200x600?text=Slide+1" class="d-block w-100" alt="Slide 1">
+    <div class="carousel-inner">
+        @foreach($photoslider as $slider)
+            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                <img src="{{asset('storage/' . $slider->main_image )}}" class="d-block w-100" alt="{{ $slider->main_title }}">
                 <div class="carousel-caption d-none d-md-block">
-                    <h1 class="display-4">Welcome to NRB Organization</h1>
-                    <p class="lead">Empowering Communities, Building Future</p>
-                    <a href="about.html" class="btn btn-light btn-lg mt-3">Learn More</a>
+                    <h1 class="display-4">{{ $slider->main_title }}</h1>
+                    <p class="lead">{{ $slider->sub_title }}</p>
+                    <a href="{{ route($slider->category) }}" class="btn btn-light btn-lg mt-3">
+                        {{-- Option 1: Simply capitalize the category name --}}
+                        {{ ucwords($slider->category) }}
+                        
+                        {{-- Option 2: Use custom text per route, e.g.: --}}
+                        {{-- 
+                        @if($slider->category == 'contact')
+                            Get in Touch
+                        @elseif($slider->category == 'about')
+                            Learn More
+                        @elseif($slider->category == 'history')
+                            Our History
+                        @elseif($slider->category == 'gallery')
+                            View Gallery
+                        @elseif($slider->category == 'board')
+                            Meet the Board
+                        @endif 
+                        --}}
+                    </a>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="https://placehold.co/1200x600?text=Slide+2" class="d-block w-100" alt="Slide 2">
-                <div class="carousel-caption d-none d-md-block">
-                    <h1 class="display-4">Our Vision</h1>
-                    <p class="lead">Inspiring change and progress for a better tomorrow</p>
-                    <a href="about.html" class="btn btn-light btn-lg mt-3">Learn More</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://placehold.co/1200x600?text=Slide+3" class="d-block w-100" alt="Slide 3">
-                <div class="carousel-caption d-none d-md-block">
-                    <h1 class="display-4">Join Our Journey</h1>
-                    <p class="lead">Be a part of our transformative initiatives</p>
-                    <a href="contact.html" class="btn btn-light btn-lg mt-3">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        @endforeach
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
 
   <!-- Featured Projects -->
 <section class="section">
@@ -49,8 +54,8 @@
                     <div class="card">
                         <img src="{{ asset('storage/' . $project->main_image) }}" class="card-img-top" alt="{{ $project->title }}">
                         <div class="card-body">
-                            <h3>   <a href="{{ route('project.show_project', $item->slug) }}" class="text-decoration-none">
-                            {{ $item->title }}
+                            <h3>   <a href="{{ route('project.show_project', $project->slug) }}" class="text-decoration-none">
+                            {{ $project->title }}
                         </a></h3>
                             <p>{!! $project->description !!}</p>
                         </div>

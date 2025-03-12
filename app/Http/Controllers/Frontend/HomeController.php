@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\News;
 use App\Models\Project;
+use App\Models\PhotoSlider;
+
 class HomeController extends Controller
 {
     function index(){
@@ -25,7 +27,10 @@ $projects = Project::select('title', 'slug', 'description', 'main_image')
     ->take(3)
     ->get();
 
-        $data = ['events'=>$events, 'news'=>$news, 'projects'=>$projects];
+$photoslider = PhotoSlider::select('main_title','sub_title','category','main_image')->get();
+
+        $data = ['events'=>$events, 'news'=>$news, 'projects'=>$projects , 
+        'photoslider'=>$photoslider];
         return view('frontend.home.index',$data);
     }
 }

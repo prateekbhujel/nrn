@@ -22,14 +22,18 @@ class PhotoSliderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->editColumn('main_image',function($photoslider){
-            return $photoslider->main_image ? '<img src="' . asset('storage/' . $photoslider->main_image) . '" alt="Banner" class="img-thumbnail" width="80">'
-                : 'No Image';
-        })  ->addColumn('action', function ($photoslider) {
-            return view('admin.achievements.partials.actions', compact('photoslider'))->render();
-        })
-        ->rawColumns(['main_image','action'])
-        ->setRowId('id');
+            ->addIndexColumn() // Automatically add an index column (DT_RowIndex)
+            ->editColumn('main_image', function ($photoslider) {
+                return $photoslider->main_image 
+                    ? '<img src="' . asset('storage/' . $photoslider->main_image) . '" alt="Banner" class="img-thumbnail" width="80">'
+                    : 'No Image';
+            })
+            ->addColumn('action', function ($photoslider) {
+                return view('admin.photoslider.partials.actions', compact('photoslider'))->render();
+            })
+            ->addColumn('sub_title', fn($row) => $row->sub_title) // Fixed arrow function syntax
+            ->rawColumns(['main_image','action'])
+            ->setRowId('id');
     }
 
     /**
@@ -47,6 +51,7 @@ class PhotoSliderDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('photoslider-table')
+                    ->setTableHeadClass('table-dark')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->orderBy(0);
@@ -58,16 +63,20 @@ class PhotoSliderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            // Optionally, you can add a column for the index if needed:
+            Column::computed('DT_RowIndex')
+                  ->title('SN')
+                  ->orderable(false)
+                  ->searchable(false),
             Column::make('main_title')->title('Main Title'),
             Column::make('sub_title')->title('Sub Title'),
             Column::make('main_image')->title('Main Image'),
-            Column::make('category')->title('category'),
+            Column::make('category')->title('Category'),
             Column::computed('action')
-            ->exportable(false)
-            ->printable(false)
-            ->width(60)
-            ->addClass('text-center'),
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
         ];
     }
 

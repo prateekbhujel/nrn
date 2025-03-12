@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\DataTables\GalleryDataTable;
+use Illuminate\Support\Str;
 
 class GalleryController extends Controller
 {
@@ -28,7 +29,7 @@ class GalleryController extends Controller
         ]);
 
         $data = $request->except('banner');
-
+        $data['slug'] = Str::slug($data['title']) . '-'.time();
         if ($request->hasFile('banner')) {
             $filePaths = uploadImage($request->file('banner'), 'gallery');
             $data['banner'] = $filePaths;
@@ -56,7 +57,7 @@ class GalleryController extends Controller
     
         $gallery = Gallery::findOrFail($id);
         $data = $request->except('banner');
-    
+        $data['slug'] = Str::slug($data['title']) . '-'.time();
         if ($request->hasFile('banner')) {
             // Ensure the existing banner is an array:
             $existing = is_array($gallery->banner)

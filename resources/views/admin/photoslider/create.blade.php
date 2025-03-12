@@ -25,8 +25,8 @@
                 'placeholder' => 'enter main title',
             ],
             [
-                'name' => 'main_title',
-                'label' => 'Main Title',
+                'name' => 'sub_title',
+                'label' => 'Sub Title',
                 'type' => 'text',
                 'placeholder' => 'enter sub title',
                 'required' => false

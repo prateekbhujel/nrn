@@ -12,7 +12,7 @@
       <li class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
           <i class="fas fa-fire"></i>
-          <span>{{ db_trans('sidebar.dashboard_link') }}</span>
+          <span>Dashboard</span>
         </a>
       </li>
 
@@ -21,13 +21,13 @@
       <li class="{{ Request::routeIs('admin.events.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.events.index') }}">
           <i class="fas fa-calendar-alt"></i>
-          <span>{{ db_trans('sidebar.events_link') }}</span>
+          <span>Events</span>
         </a>
       </li>
       <li class="{{ Request::routeIs('admin.news.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.news.index') }}">
           <i class="fas fa-newspaper"></i>
-          <span>{{ db_trans('sidebar.news_link') }}</span>
+          <span>News</span>
         </a>
       </li>
       <li class="{{ Request::routeIs('admin.projects.*') ? 'active' : '' }}">
@@ -42,24 +42,12 @@
           <span>Manage Galleries</span>
         </a>
       </li>
-      <li class="{{ Request::routeIs('admin.trans.*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.trans.index') }}">
-          <i class="fas fa-language"></i>
-          <span>Manage Translations</span>
-        </a>
-      </li>
 
-      <li class="{{ Request::routeIs('admin.languages.*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.languages.index') }}">
-          <i class="fas fa-language"></i>
-          <span>Manage Languages</span>
-        </a>
-      </li>
 
       <li class="{{ Request::routeIs('admin.aboutus') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.aboutus') }}">
-        <i class="fas fa-info"></i>
-          <span>About us</span>
+          <i class="fas fa-info"></i>
+          <span>About Us</span>
         </a>
       </li>
 
@@ -98,16 +86,6 @@
           <i class="fas fa-columns"></i>
           <span>Layout</span>
         </a>
-        <ul class="dropdown-menu">
-          <li class="{{ Request::routeIs('admin.trans.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.trans.index') }}">
-              <i class="fas fa-images"></i>
-              <span>Manage Galleries</span>
-            </a>
-          </li>
-          <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
-          <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
-        </ul>
       </li>
 
       <!-- Blank Page -->
@@ -126,8 +104,12 @@
           <span>Components</span>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="components-article.html">Article</a></li>
-          <li><a class="nav-link" href="components-avatar.html">Avatar</a></li>
+          <li>
+            <a class="nav-link" href="components-article.html">Article</a>
+          </li>
+          <li>
+            <a class="nav-link" href="components-avatar.html">Avatar</a>
+          </li>
         </ul>
       </li>
     </ul>

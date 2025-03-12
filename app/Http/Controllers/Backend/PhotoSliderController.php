@@ -48,7 +48,9 @@ class PhotoSliderController extends Controller
      */
     public function edit( $id)
     {
-    
+        $photoslider = PhotoSlider::findOrFail($id);
+        return view('admin.photoslider.edit', compact('photoslider'));
+
     }
 
     /**
@@ -56,14 +58,33 @@ class PhotoSliderController extends Controller
      */
     public function update(Request $request,$id)
     {
-        //
+        $request->validate([
+            'main_title' => 'required',
+            'main_image'=>'required'
+        ]);
+        $photoslider = PhotoSlider::findOrFail($id);
+        $data = $request->except('main_image');
+        if ($request->hasFile('main_image')) {
+            if ($data->main_image) {
+                deleteImages($data->main_image);
+            }
+            $filePath = uploadImage($request->file('main_image'), 'photoslider');
+            $data['photoslider'] = $filePath;
     }
+    $photoslider->update($data);
+    return redirect()->route('admin.photoslider.index')->with('success', 'Photoslider updated successfully.');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        //
+        $photoslider = PhotoSlider::findOrFail($id);
+        if ($photoslider->main_image) {
+            deleteImages($photoslider->main_image);
+            }
+            $main_image->delete();
+            return redirect()->route('admin.photoslider.index')->with('success', 'photoslider deleted successfully.');
     }
 }
