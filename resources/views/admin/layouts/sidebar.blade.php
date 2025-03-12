@@ -43,6 +43,12 @@
         </a>
       </li>
 
+      <li class="{{ Request::routeIs('admin.gallery.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.about.index') }}">
+          <i class="fas fa-images"></i>
+          <span>About Us Section</span>
+        </a>
+      </li>
 
       <li class="{{ Request::routeIs('admin.aboutus') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.aboutus') }}">

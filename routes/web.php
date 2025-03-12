@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AboutSectionController;
 use App\Http\Controllers\Backend\AchievementController;
 use App\Http\Controllers\Backend\BoardMemberController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -18,7 +19,6 @@ use App\Http\Controllers\Frontend\GalleryControllerler as FrontGalleryController
 use App\Http\Controllers\Frontend\HistoryController;
 use App\Http\Controllers\Frontend\ProjectController as FrontProjectController;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
-use App\Http\Controllers\Backend\TranslationController;
 use App\Http\Controllers\Backend\AboutusController;
 use App\Http\Controllers\Backend\PhotoSliderController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +66,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('projects/{project}/gallery/create', [ProjectController::class, 'galleryCreate'])->name('projects.gallery.create');
     Route::post('projects/{project}/gallery', [ProjectController::class, 'galleryStore'])->name('projects.gallery.store');
 
+    /** About Section routes. **/
+    Route::resource('about', AboutSectionController::class);
+    
     /** Gallery routes. **/
     Route::resource('gallery', GalleryController::class);
 
