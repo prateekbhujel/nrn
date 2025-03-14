@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace app\Helper;
 
 use App\Models\EmailConfiguration;
 
