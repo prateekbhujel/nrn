@@ -14,22 +14,16 @@ return new class extends Migration
         Schema::create('aboutuses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('column_1')->nullable();
-            $table->text('column_1_description')->nullable();
-            $table->string('column_2')->nullable();
-            $table->text('column_2_description')->nullable();
-            $table->string('column_3')->nullable();
-            $table->text('column_3_description')->nullable();
-            $table->string('column_4')->nullable();
-            $table->text('column_4_description')->nullable();
-            $table->string('column_5')->nullable();
-            $table->text('column_5_description')->nullable();
-            $table->string('column_6')->nullable();
-            $table->text('column_6_description')->nullable();
-            $table->string('column_7')->nullable();
-            $table->text('column_7_description')->nullable();
-            $table->string('column_8')->nullable();
-            $table->text('column_8_description')->nullable();
+            $table->string('organization_name')->nullable();
+            $table->text('organization_motto')->nullable();
+            $table->string('organization_email')->nullable();
+            $table->string('organization_number')->nullable();
+            $table->string('about_organisation')->nullable();
+            $table->string('organization_address')->nullable();
+            $table->text('about_organization')->nullable();
+            $table->string('organization_favicon')->nullable();
+            $table->string('organization_logo')->nullable();
+
         });
     }
 

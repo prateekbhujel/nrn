@@ -11,14 +11,37 @@ class AboutusController extends Controller
     function index()
     {
         $aboutus = Aboutus::get()->first();
-        return view('admin.aboutus.update',compact('aboutus'));
+        return view('admin.sitesetting.update',compact('aboutus'));
     }
 
-    function save(Request $request){
+    public function save(Request $request)
+    {
+        $siteSetting = Aboutus::findOrFail(1);
+    
         $data = $request->except('_token');
-        if (!AboutUs::where('id', 1)->update($data)) {
-            throw new Exception("Couldn't Save Records", 1);
+        
+        if ($request->hasFile('organization_logo')) {
+            if ($siteSetting->organization_logo) {
+                deleteImages($siteSetting->organization_logo);
+            }
+            $logoPath = uploadImage($request->file('organization_logo'), 'sitesetting');
+            $data['organization_logo'] = $logoPath; 
         }
-        return redirect()->route('admin.aboutus')->with('success','About us updated successfully');
+
+        if ($request->hasFile('organization_favicon')) {
+            if ($siteSetting->organization_favicon) {
+                deleteImages($siteSetting->organization_favicon);
+            }
+            $faviconPath = uploadImage($request->file('organization_favicon'), 'sitesetting');
+            $data['organization_favicon'] = $faviconPath;
+        }
+    
+        $siteSetting->update($data);
+    
+        return redirect()->route('admin.sitesetting')->with('success', 'Site setting was updated successfully');
     }
+    
+
+
+    
 }

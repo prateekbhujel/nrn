@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h4>About NRB</h4>
-                    <p>Working towards sustainable development and community empowerment in Nepal.</p>
+                    <h4>About {{@$siteSetting->organization_name}}</h4>
+                    <p>{{@$siteSetting->about_organisation}}</p>
                 </div>
                 <div class="col-md-4">
                     <h4>Quick Links</h4>
@@ -19,10 +19,10 @@
                 <div class="col-md-4">
                     <h4>Contact Info</h4>
                     <p>
-                        123 Main Street<br>
-                        Kathmandu, Nepal<br>
-                        Phone: +977-1-234567<br>
-                        Email: info@nrb.org.np
+                    {{@$siteSetting->organization_address}}<br>
+                        Phone:  {{@$siteSetting->organization_number}}<br>
+                        Email: {{@$siteSetting->organization_email}}<br>
+
                     </p>
                 </div>
             </div>

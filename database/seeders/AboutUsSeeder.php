@@ -14,23 +14,16 @@ class AboutUsSeeder extends Seeder
     public function run(): void
     {
         DB::table('aboutuses')->insert([
-           'column_1' => 'Value 1',
-                'column_1_description' => 'Description for column 1',
-                'column_2' => 'Value 2',
-                'column_2_description' => 'Description for column 2',
-                'column_3' => 'Value 3',
-                'column_3_description' => 'Description for column 3',
-                'column_4' => 'Value 4',
-                'column_4_description' => 'Description for column 4',
-                'column_5' => 'Value 5',
-                'column_5_description' => 'Description for column 5',
-                'column_6' => 'Value 6',
-                'column_6_description' => 'Description for column 6',
-                'column_7' => 'Value 7',
-                'column_7_description' => 'Description for column 7',
-                'column_8' => 'Value 8',
-                'column_8_description' => 'Description for column 8',
+            [
+                'organization_name' => 'Tech Innovators',
+                'organization_motto' => 'Innovate, Create, Elevate',
+                'organization_email' => 'contact@techinnovators.com',
+                'organization_number' => '+1234567890',
+                'about_organisation' => 'A leading company in tech innovations.',
+                'organization_address' => '123 Innovation Street, Silicon Valley',
+                'about_organization' => 'Tech Innovators is dedicated to pushing the boundaries of technology.',
                 'created_at' => Carbon::now()
+            ],
         ]);
 
     }

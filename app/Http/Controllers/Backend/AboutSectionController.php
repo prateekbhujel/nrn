@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutSection;
 use App\Models\AboutSectionItem;
 use Illuminate\Http\Request;
+use App\DataTables\AboutSectionDataTable;
 
 class AboutSectionController extends Controller
 {
     // Display all sections with their items
-    public function index()
+    public function index(AboutSectionDataTable $dataTable)
     {
-        $sections = AboutSection::with('items')->orderBy('id')->get();
-        return view('admin.about.index', compact('sections'));
+        return $dataTable->render('admin.about.index');
     }
 
     // Show form to create a new section

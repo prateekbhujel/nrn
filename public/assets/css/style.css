@@ -48,11 +48,9 @@ body {
 .logo-placeholder {
     width: 200px;
     height: 60px;
-    background: var(--secondary-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     font-weight: bold;
 }
 

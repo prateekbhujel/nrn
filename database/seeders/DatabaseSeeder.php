@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         // Call the AboutSectionSeeder
         $this->call([
             AboutSectionSeeder::class,
+            AboutUsSeeder::class,
+
         ]);
     }
 }

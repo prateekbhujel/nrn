@@ -43,17 +43,10 @@
         </a>
       </li>
 
-      <li class="{{ Request::routeIs('admin.gallery.*') ? 'active' : '' }}">
+      <li class="{{ Request::routeIs('admin.about.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.about.index') }}">
-          <i class="fas fa-images"></i>
-          <span>About Us Section</span>
-        </a>
-      </li>
-
-      <li class="{{ Request::routeIs('admin.aboutus') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.aboutus') }}">
-          <i class="fas fa-info"></i>
-          <span>About Us</span>
+        <i class="fas fa-info"></i>
+        <span>About Us Section</span>
         </a>
       </li>
 
@@ -85,19 +78,29 @@
         </ul>
       </li>
 
-      <!-- Starter Section -->
-      <li class="menu-header">Starter</li>
-      <li class="dropdown">
-        <a href="#" class="nav-link has-dropdown">
+      <li class="{{ Request::routeIs('admin.photoslider.*') ? 'active' : '' }}">
+        <a class="nav-link"  href="{{route('admin.photoslider.index')}}">
           <i class="fas fa-columns"></i>
-          <span>Layout</span>
+          <span>PhotoSlider</span>
         </a>
       </li>
+
+      <li class="{{ Request::routeIs('admin.sitesetting') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.sitesetting') }}">
+        <i class="fas fa-hammer"></i>       
+         <span> Site Setting</span>
+        </a>
+      </li>
+
+      
+
+      <!-- Starter Section -->
+      <li class="menu-header">Starter</li>
 
       <!-- Blank Page -->
       <li>
         <a class="nav-link" href="blank.html">
-          <i class="far fa-square"></i>
+          <i class="fas fa-gear"></i>
           <span>Blank Page</span>
         </a>
       </li>

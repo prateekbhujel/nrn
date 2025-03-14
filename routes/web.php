@@ -81,9 +81,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
    
 
     /** about us routes **/ 
-    Route::group(['prefix'=>'aboutus'], function () {
-        Route::get('/', [AboutusController::class, 'index'])->name('aboutus');
-        Route::post('/save', [AboutusController::class, 'save'])->name('aboutus.save');
+    Route::group(['prefix'=>'sitesetting'], function () {
+        Route::get('/', [AboutusController::class, 'index'])->name('sitesetting');
+        Route::post('/save', [AboutusController::class, 'save'])->name('sitesetting.save');
     });
     
 });

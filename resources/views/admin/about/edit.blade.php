@@ -1,4 +1,9 @@
-@extends('layouts.app')
+@extends('admin.layouts.master')
+<style>
+    .btn-close{
+        margin-top : -10;
+    }
+</style>
 
 @section('content')
 <div class="container my-5">
