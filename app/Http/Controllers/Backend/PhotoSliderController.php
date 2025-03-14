@@ -84,7 +84,7 @@ class PhotoSliderController extends Controller
         if ($photoslider->main_image) {
             deleteImages($photoslider->main_image);
             }
-            $main_image->delete();
+            $photoslider->delete();
             return redirect()->route('admin.photoslider.index')->with('success', 'photoslider deleted successfully.');
     }
 }
