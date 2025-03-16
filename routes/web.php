@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\ProjectController as FrontProjectController;
 use App\Http\Controllers\Frontend\NewsEventControllerler;
 use App\Http\Controllers\Backend\AboutusController;
 use App\Http\Controllers\Backend\PhotoSliderController;
+use App\Http\Controllers\Backend\ContactController as BackendContactController; 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -28,8 +29,13 @@ use Illuminate\Http\Request;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/board', [BoardControllerler::class, 'index'])->name('board');
-Route::get('/contact', [ContactControllerler::class, 'index'])->name('contact');
 Route::get('/history', [HistoryController::class, 'index'])->name('history');
+
+Route::group(['prefix'=>'contact'],function(){
+    Route::get('/', [ContactControllerler::class, 'index'])->name('contact');
+    Route::post('/save',[ContactControllerler::class, 'save'])->name('contact.save');
+
+});
 
 Route::group(['prefix'=>'gallery'],function(){
     Route::get('/', [FrontGalleryController::class, 'index'])->name('gallery');
@@ -78,7 +84,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('timeline-items', TimelineItemController::class);
     Route::resource('achievements', AchievementController::class);
     Route::resource('photoslider',PhotoSliderController::class);
-   
+
+    Route::group(['prefix'=>'contact'],function(){
+        Route::get('/',[BackendContactController::class,'index'])->name('contact');
+        Route::post('/view',[BackendContactController::class,'view'])->name('contact.view');
+        Route::get('/destroy',[BackendContactController::class,'destroy'])->name('contact.destroy');
+    }); 
+
+
 
     /** about us routes **/ 
     Route::group(['prefix'=>'sitesetting'], function () {

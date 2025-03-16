@@ -64,6 +64,9 @@
           <a class="nav-link {{ request()->routeIs('news-events') ? 'active' : '' }}" href="{{ route('news-events') }}">News & Events</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link  {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ 'contact' }}">Contact</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ 'gallery' }}">Gallery</a>
         </li>
       </ul>

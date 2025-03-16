@@ -41,7 +41,4 @@ class AboutusController extends Controller
         return redirect()->route('admin.sitesetting')->with('success', 'Site setting was updated successfully');
     }
     
-
-
-    
 }
