@@ -14,33 +14,19 @@ class ContactController extends Controller
         return $dataTable->render('admin.contact.index');
     }
 
-    public function view(Request $request)
+     public function view(Request $request)
     {
-        try {
-            $post = $request->all();
-            $queryDetail = Contact::where('id', $post['id'])->first();
-
-            $data = [
-                'queryDetail' => $queryDetail,
-            ];
-
-            $data['type'] = 'success';
-            $data['message'] = 'Successfully fetched data of Event.';
-        } catch (QueryException $e) {
-            $data['type'] = 'error';
-            $data['message'] = $this->queryMessage;
-        } catch (Exception $e) {
-            $data['type'] = 'error';
-            $data['message'] = $e->getMessage();
-        }
-        return view('admin.contact.view', $data);
+        $contactId = $request->input('id');
+        $contact = Contact::findOrFail($contactId);
+        $html = view('admin.contact.partials.view', compact('contact'))->render();
+        return response()->json(['html' => $html]);
     }
-
+    
     public function destroy($id)
     {
-        $contact = Controller::findOrFail($id);
+        $contact = Contact::findOrFail($id);
         $contact->delete();
-        return redirect()->route('admin.contact.index')->with('success', 'Contact deleted successfully.');
+        return redirect()->back()->with('success', 'Contact deleted successfully.');
     }
 }
 

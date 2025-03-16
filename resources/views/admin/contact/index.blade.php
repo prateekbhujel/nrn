@@ -1,16 +1,7 @@
 @extends('admin.layouts.master')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @section('title', 'Contact Us')
 
 @section('content')
-<div class="modal fade" id="modal"  data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                {{-- Content goes here --}}
-            </div>
-        </div>
-    </div>
 <div class="section-header">
     <div class="section-header-back">
     </div>
@@ -25,26 +16,34 @@
 </div>
 @endsection
 
-<script>
-          $(document).ready(function() {
-
-
-$(document).off('click', '.view');
-$(document).on('click', '.view', function() {
-                var id = $(this).data('id');
-                var url = "{{ route('admin.contact.view') }}";
-                var data = {
-                    id: id
-                };
-                $.post(url, data, function(response) {
-                    $('#modal .modal-content').html(response);
-                    $('#modal').modal('show');
-                });
-            });
-          })
-</script>
-
-
 @push('scripts')
   {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+  <script>
+    $(document).on('click', '.view-item', function(e) {
+        e.preventDefault();
+        var contactId = $(this).data('id');
+        $.ajax({
+            url: '{{ route("admin.contact.view") }}',
+            type: 'POST',
+            data: {
+                id: contactId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if ($('#contactModal').length === 0) {
+                    $('body').append(response.html);
+                } else {
+                    $('#contactModal').replaceWith(response.html);
+                }
+                $('#contactModal').modal('show');
+            },
+            error: function(xhr) {
+                alert('Failed to load contact details. Please try again.');
+            }
+        });
+    });
+    </script>
+    
+    
 @endpush
