@@ -51,7 +51,7 @@
             @endphp
 
             <x-cms-form action="{{route('admin.timeline-items.update',$timeline->id)}}"
-                method="PATCH" :model="$timeline" :fields="$fields" submitText="Create Timeline Item"
+                method="PATCH" :model="$timeline" :fields="$fields" submitText="Update Timeline Item"
                 buttonPosition="right" />
         </div>
     </div>

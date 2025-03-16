@@ -41,7 +41,7 @@ class TimelineItemController extends Controller
             $data['image_path'] = $filePath;
         }
         TimelineItem::create($data);
-        return redirect()->route('admin.timeline_items.index')->with('success', 'Event created successfully.');
+        return redirect()->route('admin.timeline-items.index')->with('success', 'Event created successfully.');
     }
     /**
      * Show the form for editing the specified resource.
