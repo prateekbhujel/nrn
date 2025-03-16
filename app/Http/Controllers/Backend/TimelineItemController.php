@@ -83,7 +83,7 @@ class TimelineItemController extends Controller
             deleteImages($timeline->image_path);
         }
         $timeline->delete();
-        return redirect()->route('admin.timeline_items.index')->with('success', 'Timeline deleted successfully.');
+        return redirect()->route('admin.timeline-items.index')->with('success', 'Timeline deleted successfully.');
 
     }
 }

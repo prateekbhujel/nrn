@@ -36,8 +36,6 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
                     <h2>Our Journey</h2>
-                    <p class="lead">Since our establishment in 2000, NRB Organization has been dedicated to improving
-                        lives and building stronger communities across Nepal.</p>
                 </div>
             </div>
         </div>

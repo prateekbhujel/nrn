@@ -85,41 +85,18 @@
         </a>
       </li>
 
+      <li class="{{ Request::routeIs('admin.contact') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.contact') }}">
+        <i class="fas fa-address-book"></i>       
+         <span> Contact Us</span>
+        </a>
+      </li>
+
       <li class="{{ Request::routeIs('admin.sitesetting') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.sitesetting') }}">
         <i class="fas fa-hammer"></i>       
          <span> Site Setting</span>
         </a>
-      </li>
-
-      
-
-      <!-- Starter Section -->
-      <li class="menu-header">Starter</li>
-
-      <!-- Blank Page -->
-      <li>
-        <a class="nav-link" href="blank.html">
-          <i class="fas fa-gear"></i>
-          <span>Blank Page</span>
-        </a>
-      </li>
-
-      <!-- Stisla Components -->
-      <li class="menu-header">Stisla</li>
-      <li class="dropdown">
-        <a href="#" class="nav-link has-dropdown">
-          <i class="fas fa-th-large"></i>
-          <span>Components</span>
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a class="nav-link" href="components-article.html">Article</a>
-          </li>
-          <li>
-            <a class="nav-link" href="components-avatar.html">Avatar</a>
-          </li>
-        </ul>
       </li>
     </ul>
   </aside>

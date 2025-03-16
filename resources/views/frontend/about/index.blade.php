@@ -26,7 +26,6 @@
                             <h2>{{ $mission->title }}</h2>
                             <p>{{ $mission->description }}</p>
                             @if($mission->items->count())
-                            <p>We strive to create lasting positive change by:</p>
                             <ul>
                                 @foreach($mission->items as $item)
                                     <li>{{ $item->content }}</li>
@@ -43,7 +42,6 @@
                             <h2>{{ $vision->title }}</h2>
                             <p>{{ $vision->description }}</p>
                             @if($vision->items->count())
-                            <p>Our long-term goals include:</p>
                             <ul>
                                 @foreach($vision->items as $item)
                                     <li>{{ $item->content }}</li>

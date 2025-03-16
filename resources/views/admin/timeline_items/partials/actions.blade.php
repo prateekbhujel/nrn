@@ -2,7 +2,7 @@
     <i class="fas fa-edit"></i>
 </a>
 
-    <a href="{{ route('admin.timeline-items.destroy', $timeline->id) }}" id="delete" class="btn btn-sm btn-danger delete-item" data-url="{{ route('admin.events.destroy', $timeline->id) }}">
+    <a href="{{ route('admin.timeline-items.destroy', $timeline->id) }}" id="delete" class="btn btn-sm btn-danger delete-item" data-url="{{ route('admin.timeline-items.destroy', $timeline->id) }}">
         <i class="fas fa-trash"></i>
     </a>
 </form>
