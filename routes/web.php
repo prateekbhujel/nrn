@@ -88,7 +88,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::group(['prefix'=>'contact'],function(){
         Route::get('/',[BackendContactController::class,'index'])->name('contact');
         Route::post('/view',[BackendContactController::class,'view'])->name('contact.view');
-        Route::get('/destroy',[BackendContactController::class,'destroy'])->name('contact.destroy');
+        Route::delete('/destroy/{id}',[BackendContactController::class,'destroy'])->name('contact.destroy');
     }); 
 
 

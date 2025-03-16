@@ -23,7 +23,7 @@ class ContactDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function($contact){
+            ->editColumn('action', function($contact){
                 return view('admin.contact.partials.actions',compact('contact'))->render();
 
             })

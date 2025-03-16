@@ -4,7 +4,7 @@
   <div class="hero-placeholder">
   <div class="container">
     <!-- Dynamic title from the $news record -->
-    <h1 class="display-4">News: {{ $news->title }}</h1>
+    <h1 class="display-4">{{ $news->title }}</h1>
   </div>
 </div>
 
@@ -18,7 +18,7 @@
     <img src="{{ asset('storage/' . $news->banner) }}" class="img-fluid mb-4" alt="{{ $news->title }}" />
     <!-- Dynamic description -->
     <p>
-      {{ $news->description }}
+      {!! $news->description !!}
     </p>
     <!-- You can add more dynamic content here if needed -->
   </div>

@@ -5,7 +5,9 @@
 @section('content')
 <div class="section-header">
   <div class="section-header-back">
-    <a href="{{ route('admin.events.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+    <a href="{{ route('admin.events.index') }}" class="btn btn-icon">
+      <i class="fas fa-arrow-left"></i>
+    </a>
   </div>
   <h1>Manage Event</h1>
 </div>
@@ -17,11 +19,6 @@
   <div class="card-body">
     @php
     $fields = [
-        [
-          'name' =>'id'
-          'type'=>'text',
-          'hidden'=>
-        ],
         [
             'name' => 'banner',
             'label' => 'Banner Image',
@@ -55,9 +52,14 @@
             'required' => true,
         ],
     ];
-  @endphp
+    @endphp
 
-    <x-cms-form action="{{ route('admin.events.update', $event->id) }}" method="PATCH" :fields="$fields" :model="$event" />
+    <x-cms-form 
+      action="{{ route('admin.events.update', $event->id) }}" 
+      method="PATCH" 
+      :fields="$fields" 
+      :model="$event" 
+    />
   </div>
 </div>
 @endsection

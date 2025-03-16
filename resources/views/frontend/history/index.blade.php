@@ -1,5 +1,23 @@
 @extends('layouts.frontend.main')
 @section('main-content')
+<style>
+    .card-img-placeholder {
+    width: 100%;  /* Ensures it takes the full width of the container */
+    max-width: 400px; /* Optional: Set a max width */
+    height: 200px; /* Fixed height for consistency */
+    overflow: hidden; /* Ensures no overflow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img-placeholder img {
+    width: 100%; /* Makes the image responsive */
+    height: 100%; /* Forces the image to fill the container */
+    object-fit: cover; /* Crops and fills the space while maintaining aspect ratio */
+}
+
+</style>
 <div class="hero-placeholder" style="height: 300px;">
         <div class="container">
             <h1 class="display-4">Our History</h1>
@@ -30,17 +48,17 @@
     <div class="container">
         <div class="timeline">
             @foreach($history as $item)
-                <div class="timeline-item">
-                    <h3>{{ $item->year }} - {{ $item->title }}</h3>
-                    <div class="card-img-placeholder mb-3">
-                        @if($item->image_path)
-                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}"  height="200">
-                        @else
-                            Historical Image (400x300)
-                        @endif
-                    </div>
-                    <p>{!! $item->description !!}</p>
-                </div>
+            <div class="timeline-item">
+    <h3>{{ $item->year }} - {{ $item->title }}</h3>
+
+    @if($item->image_path)
+        <div class="card-img-placeholder mb-3">
+            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
+        </div>
+    @endif
+
+    <p>{!! $item->description !!}</p>
+</div>
             @endforeach
         </div>
     </div>

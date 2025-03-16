@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', db_trans('events.create_event'))
+@section('title', 'Create Event')
 
 @section('content')
 <div class="section-header">
@@ -9,44 +9,44 @@
       <i class="fas fa-arrow-left"></i>
     </a>
   </div>
-  <h1>{{ db_trans('events.manage_event') }}</h1>
+  <h1>Manage Event</h1>
 </div>
 
 <div class="card">
   <div class="card-header">
-    <h4>{{ db_trans('events.create_event') }}</h4>
+    <h4>Create Event</h4>
   </div>
   <div class="card-body">
     @php
     $fields = [
         [
             'name' => 'banner',
-            'label' => db_trans('form.banner_images'),
+            'label' => 'Banner Images',
             'type' => 'file',
             'required' => true,
         ],
         [
             'name' => 'title',
-            'label' => db_trans('form.title'),
+            'label' => 'Title',
             'type' => 'text',
             'required' => true,
-            'placeholder' => db_trans('form.enter_title'),
+            'placeholder' => 'Enter Title',
         ],
         [
             'name' => 'event_date',
-            'label' => db_trans('form.event_date'),
+            'label' => 'Event Date',
             'type' => 'date',
             'required' => true,
         ],
         [
             'name' => 'location',
-            'label' => db_trans('form.location'),
+            'label' => 'Location',
             'type' => 'text',
-            'placeholder' => db_trans('form.enter_event_location'),
+            'placeholder' => 'Enter Event Location',
         ],
         [
             'name' => 'description',
-            'label' => db_trans('form.description'),
+            'label' => 'Description',
             'class' => 'summernote',
             'type' => 'textarea',
             'required' => true,
@@ -57,7 +57,7 @@
     <x-cms-form 
         action="{{ route('admin.events.store') }}" 
         :fields="$fields"
-        submitText="{{ db_trans('form.create_event') }}"
+        submitText="Create Event"
         buttonPosition="right"
     />
   </div>
