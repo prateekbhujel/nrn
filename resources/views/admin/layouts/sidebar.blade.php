@@ -4,7 +4,7 @@
       <a href="{{ route('admin.dashboard') }}">{{ config('app.name') }}</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="{{ route('admin.dashboard') }}">CMS</a>
+      <a href="{{ route('admin.dashboard') }}">napas</a>
     </div>
     <ul class="sidebar-menu">
       <!-- Dashboard -->
