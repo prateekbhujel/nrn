@@ -28,7 +28,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-12 text-center">
-                    <p class="mb-0">&copy; 2025 NRB Organization. All rights reserved.</p>
+                    <p class="mb-0">&copy;{{ date('Y') }}Nawalpursewasamaj All rights reserved.</p>
                 </div>
             </div>
         </div>

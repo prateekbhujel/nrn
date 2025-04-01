@@ -97,16 +97,6 @@
     </div>
 </section>
 
-<!-- Map Section -->
-<section class="section bg-light">
-    <div class="container">
-        <div class="card">
-            <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=85.2998,27.7000,85.3198,27.7200&layer=mapnik&marker=27.7150,85.3076"
-                style="border: 1px solid black"></iframe>
-        </div>
-    </div>
-</section>
 
 <!-- jQuery (Ensure it's included) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

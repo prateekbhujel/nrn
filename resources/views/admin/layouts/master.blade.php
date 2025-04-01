@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'NRN') &mdash; {{ config('app.name') }}</title>
+    <title>@yield('title', 'Nawalpursewasamaj') &mdash; {{ config('app.name') }}</title>
     @stack('styles')
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -44,9 +44,7 @@
             <footer class="main-footer">
                 <div class="footer-left">
                     Copyright &copy; {{ date('Y') }}
-                    <div class="bullet"></div> Developed By
-                    <a target="_blank" href="https://pratikbhujel.com.np/">Pratik Bhujel</a>
-                </div>
+                    <span>Nawalpursewasamaj All rights reserved.</span>
             </footer>
         </div>
     </div>

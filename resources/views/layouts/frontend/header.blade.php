@@ -20,11 +20,11 @@
 
 <!-- Main Header -->
 <header class="main-header py-3">
-  <div class="container d-flex align-items-center">
+  <div class="container d-flex align-items-center justify-content-between">
     <!-- Logo Section -->
     <div class="header-logo me-3">
       @if(!empty($siteSetting->organization_logo))
-        <img src="{{ asset('storage/' . $siteSetting->organization_logo) }}" alt="Organization Logo" class="img-fluid">
+        <img src="{{ asset('storage/' . $siteSetting->organization_logo) }}" alt="Organization Logo" class="img-fluid" style="max-width: 100px;">
       @else
         <p>No logo uploaded.</p>
       @endif
@@ -34,8 +34,14 @@
       <h1 class="mb-0">{{@$siteSetting->organization_name}}</h1>
       <p class="mb-0">{{@$siteSetting->organization_motto}}</p>
     </div>
+    <!-- Flag GIFs (aligned to the right) -->
+    <!-- <div class="d-flex">
+      <img src="{{ asset('assets/Animated-Flag-Nepal.gif') }}" alt="Nepal Flag" style="max-width: 100px;">
+      <img src="{{ asset('assets/Belgium_240-animated-flag-gifs.gif') }}" alt="Belgium Flag" style="max-width: 100px;">
+    </div> -->
   </div>
 </header>
+
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg">
@@ -46,7 +52,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="/nrn">Home</a>
+          <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{route('home')}}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About Us</a>
