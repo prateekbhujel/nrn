@@ -59,7 +59,6 @@ class PhotoSliderController extends Controller
     {
         $request->validate([
             'main_title' => 'required',
-            'main_image'=>'required'
         ]);
         $photoslider = PhotoSlider::findOrFail($id);
         $data = $request->except('main_image');

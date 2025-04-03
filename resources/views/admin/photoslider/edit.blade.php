@@ -53,7 +53,7 @@
         ];
         @endphp
 
-        <x-cms-form action="{{ route('admin.photoslider.update',$photoslider->id) }}" :fields="$fields" submitText="Update Slider" buttonPosition="right"
+        <x-cms-form action="{{ route('admin.photoslider.update',$photoslider->id) }}" method="PATCH" :fields="$fields" submitText="Update Slider" buttonPosition="right"
         :model="$photoslider" />
     </div>
 </div>
