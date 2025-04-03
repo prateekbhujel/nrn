@@ -10,7 +10,7 @@
     'buttonPosition' => 'right',
     'maxFileSize' => 5120, // in KB (5MB)
     'allowedFileTypes' => ['image/jpeg', 'image/png', 'image/gif'],
-    'maxFiles' => 10,
+    'maxFiles' => 100,
     'showFilePreview' => true,
 ])
 

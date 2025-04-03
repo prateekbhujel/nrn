@@ -21,8 +21,8 @@
             @foreach($executive as $member)
                 <div class="col-md-6 mb-4">
                     <div class="card h-100">
-                        <div class="card-img-placeholder" style="height: 400px; background-image: url('{{ asset($member->image_path) }}'); background-size: cover; background-position: center;">
-                            <!-- Image Placeholder -->
+                 
+                        <div class="card-img-placeholder" style="height: 400px; background-image: url('{{ asset('storage/'.$member->image_path) }}'); background-size: cover; background-position: center;">
                         </div>
                         <div class="card-body">
                             <h3>{{ $member->name }}</h3>

@@ -30,7 +30,6 @@ class PhotoSliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'main_title' => 'required',
             'main_image'=>'required'
         ]);
         $data = $request->except(['_token', 'main_image']);

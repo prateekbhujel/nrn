@@ -22,7 +22,8 @@ class GalleryControllerler extends Controller
 
     public function innerGallery($slug)
     {
-        $galleries = Gallery::select('title', 'banner')->get();
+        $galleries = Gallery::select('title', 'banner')->where('slug', $slug) ->get(); 
         return view('frontend.gallery.inner-gallery', compact('galleries'));
     }
+
 }

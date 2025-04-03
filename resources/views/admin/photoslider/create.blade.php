@@ -21,7 +21,6 @@
                 'name' => 'main_title',
                 'label' => 'Main Title',
                 'type' => 'text',
-                'required' => 'true',
                 'placeholder' => 'enter main title',
             ],
             [

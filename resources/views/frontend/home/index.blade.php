@@ -11,9 +11,12 @@
           <div class="carousel-caption d-none d-md-block">
             <h1 class="display-4">{{ $slider->main_title }}</h1>
             <p class="lead">{{ $slider->sub_title }}</p>
-            <a href="{{ route($slider->category) }}" class="btn btn-light btn-lg mt-3">
-              {{ ucwords($slider->category) }}
-            </a>
+            @if(!empty($slider->category))
+    <a href="{{ route($slider->category) }}" class="btn btn-light btn-lg mt-3">
+        {{ ucwords($slider->category) }}
+    </a>
+@endif
+
           </div>
         </div>
       @endforeach

@@ -35,7 +35,6 @@ class BoardMemberController extends Controller
             'position'=> 'required',
             'type'=> 'required',
             'description'=>'required',
-            'areas_of_expertise'=>'required',
         ]);
         $data = $request->except('image_path');
 
@@ -68,7 +67,6 @@ class BoardMemberController extends Controller
             'position'=> 'required',
             'type'=> 'required',
             'description'=>'required',
-            'areas_of_expertise'=>'required',
         ]);
 
         $board = BoardMember::findOrFail($id);

@@ -61,7 +61,6 @@
             'name' => 'areas_of_expertise',
             'label' => 'Areas of Expertise',
             'type' => 'textarea',
-            'required' => false,
             'placeholder' => 'Enter areas of expertise',
         ],
     ];
