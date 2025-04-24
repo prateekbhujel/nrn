@@ -71,8 +71,7 @@
                     <div class="card-body">
                         <h3>Office Location</h3>
                         <p>
-                            123 Main Street<br>
-                            Kathmandu, Nepal
+                            {{@$siteSetting->organization_address}}
                         </p>
                     </div>
                 </div>
@@ -82,13 +81,11 @@
                         <h3>Contact Details</h3>
                         <p>
                             <strong>Phone:</strong><br>
-                            +977-1-234567<br>
-                            +977-1-234568
+                            {{@$siteSetting->organization_number}}
                         </p>
                         <p>
                             <strong>Email:</strong><br>
-                            info@nrb.org.np<br>
-                            support@nrb.org.np
+                             {{@$siteSetting->organization_email}}<br>
                         </p>
                     </div>
                 </div>
