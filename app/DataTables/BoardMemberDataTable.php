@@ -22,11 +22,12 @@ class BoardMemberDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->addColumn('action', function ($board) {
                 return view('admin.board_members.partials.actions', compact('board'))->render();
 
         })->editColumn('image_path', function ($board) {
-            return $board->image_path 
+            return $board->image_path
                 ? '<img src="' . asset('storage/' . $board->image_path) . '" alt="board memeber image" class="img-thumbnail" width="80">'
                 : 'No Image';
         })->
@@ -60,7 +61,7 @@ class BoardMemberDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('ID'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('name'),
             Column::make('position'),
             Column::make('type'),

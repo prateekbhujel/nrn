@@ -22,6 +22,7 @@ class TimelineItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->editColumn('image_path',function($timeline){
                 return $timeline->image_path ? '<img src="' . asset('storage/' . $timeline->image_path) . '" alt="timeline image" class="img-thumbnail" width="80">'
                     : 'No Image';
@@ -59,7 +60,7 @@ class TimelineItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('image_path')->title('image_path')->exportable(false)->printable(false),
             Column::make('title')->title('Title'),
             Column::make('year')->title('year'),

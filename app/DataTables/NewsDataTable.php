@@ -20,11 +20,12 @@ class NewsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->editColumn('publish_date', function ($news) {
                 return Carbon::parse($news->publish_date)->format('M j, Y');
             })
             ->editColumn('banner', function ($news) {
-                return $news->banner 
+                return $news->banner
                 ? '<img src="' . asset('storage/' . $news->banner) . '" alt="Banner" class="img-thumbnail" width="80">'
                 : 'No Image';
             })
@@ -61,7 +62,7 @@ class NewsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('banner')->title('Banner'),
             Column::make('title'),
             Column::make('publish_date')->title('Publish Date'),

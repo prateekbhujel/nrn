@@ -22,6 +22,7 @@ class AchievementDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->addColumn('action', function($achivement){
                 return view('admin.achievements.partials.actions',compact('achivement'))->render();
             })
@@ -57,7 +58,7 @@ class AchievementDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('title'),
             Column::make('value'),
             Column::computed('action')

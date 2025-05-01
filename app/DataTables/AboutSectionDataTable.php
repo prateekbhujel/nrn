@@ -22,6 +22,7 @@ class AboutSectionDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->addColumn('action', function($about){
                 return view('admin.about.partials.actions',compact('about'))->render();
             })
@@ -55,7 +56,7 @@ class AboutSectionDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('section_name'),
             Column::make('title'),
             Column::make('description'),

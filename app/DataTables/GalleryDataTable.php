@@ -21,6 +21,7 @@ class GalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->editColumn('date', function ($gallery) {
                 return Carbon::parse($gallery->date)->format('M j, Y');
             })
@@ -28,10 +29,10 @@ class GalleryDataTable extends DataTable
                 return view('admin.galleries.partials.actions', compact('gallery'))->render();
             })
             ->editColumn('banner', function ($gallery) {
-                return $gallery->thumbnail 
+                return $gallery->thumbnail
                     ? '<img src="' . asset('storage/' . $gallery->thumbnail) . '" alt="Thumbnail" class="img-thumbnail" width="80">'
                     : 'No Image';
-            })            
+            })
             ->rawColumns(['action', 'banner'])
             ->setRowId('id');
     }
@@ -62,7 +63,7 @@ class GalleryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('ID'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('banner')->title('Banner')->exportable(false)->printable(false),
             Column::make('title')->title('Title'),
             Column::make('date')->title('Event Date'),

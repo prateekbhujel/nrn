@@ -21,6 +21,7 @@ class EventDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->editColumn('event_date', function ($news) {
                 return Carbon::parse($news->event_date)->format('M j, Y');
             })
@@ -28,7 +29,7 @@ class EventDataTable extends DataTable
                 return view('admin.events.partials.actions', compact('event'))->render();
             })
             ->editColumn('banner', function ($event) {
-                return $event->banner 
+                return $event->banner
                     ? '<img src="' . asset('storage/' . $event->banner) . '" alt="Banner" class="img-thumbnail" width="80">'
                     : 'No Image';
             })
@@ -62,7 +63,8 @@ class EventDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('ID'),
+            // Column::make('id')->title('ID'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false), 
             Column::make('banner')->title('Banner')->exportable(false)->printable(false),
             Column::make('title')->title('Title'),
             Column::make('event_date')->title('Event Date'),

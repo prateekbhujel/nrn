@@ -23,6 +23,7 @@ class ContactDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->editColumn('action', function($contact){
                 return view('admin.contact.partials.actions',compact('contact'))->render();
 
@@ -58,7 +59,7 @@ class ContactDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::make('full_name'),
             Column::make('email_address'),
             Column::make('subject'),
@@ -69,7 +70,7 @@ class ContactDataTable extends DataTable
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-           
+
         ];
     }
 

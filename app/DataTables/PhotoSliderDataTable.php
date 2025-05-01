@@ -24,7 +24,7 @@ class PhotoSliderDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addIndexColumn() // Automatically add an index column (DT_RowIndex)
             ->editColumn('main_image', function ($photoslider) {
-                return $photoslider->main_image 
+                return $photoslider->main_image
                     ? '<img src="' . asset('storage/' . $photoslider->main_image) . '" alt="Banner" class="img-thumbnail" width="80">'
                     : 'No Image';
             })
@@ -51,7 +51,6 @@ class PhotoSliderDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('photoslider-table')
-                    ->setTableHeadClass('table-dark')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->orderBy(0);

@@ -21,6 +21,7 @@ class ProjectDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addIndexColumn()
             ->addColumn('action', function ($project) {
                 return view('admin.projects.partials.actions', compact('project'))->render();
             })
@@ -31,8 +32,8 @@ class ProjectDataTable extends DataTable
                 return Carbon::parse($project->updated_at)->format('M j, Y');
             })
             ->addColumn('main_image', function ($project) {
-                return $project->main_image 
-                    ? '<img src="' . asset('storage/' . $project->main_image) . '" width="50">' 
+                return $project->main_image
+                    ? '<img src="' . asset('storage/' . $project->main_image) . '" width="50">'
                     : 'No Image';
             })
             ->rawColumns(['action', 'main_image'])
@@ -74,7 +75,7 @@ class ProjectDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('ID'),
+            Column::make('DT_RowIndex')->title('S.N')->searchable(false)->orderable(false),
             Column::computed('main_image')
                   ->exportable(false)
                   ->printable(false)
