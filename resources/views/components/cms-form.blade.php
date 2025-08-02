@@ -104,12 +104,12 @@
 
                     @if ($showFilePreview)
                         <div class="file-preview-zone mt-3">
-                            <div id="{{ $uniqueId }}-preview" class="preview-container d-flex flex-wrap gap-2">
+                            <div id="{{ $uniqueId }}-preview" class="preview-container">
                             </div>
 
                             {{-- Show existing files when editing --}}
                             @if ($model && isset($model[$field['name']]))
-                                <div class="existing-files mt-2 d-flex flex-wrap gap-2">
+                                <div class="existing-files mt-2">
                                     @if (is_array($model[$field['name']]))
                                         @foreach ($model[$field['name']] as $file)
                                             <div class="file-wrapper" data-file="{{ $file }}">
@@ -178,24 +178,40 @@
 
 @push('styles')
     <style>
-        /* Enhanced form component styles */
+        /* Enhanced form component styles - FIXED VERSION */
+        .enhanced-form {
+            max-width: 100%;
+            overflow: hidden;
+        }
+
         .file-upload-wrapper {
             position: relative;
+            width: 100%;
+            max-width: 100%;
         }
+
         .preview-container,
         .existing-files {
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
+            max-width: 100%;
+            overflow: hidden;
         }
+
         .file-wrapper {
             position: relative;
-            width: 150px;
-            margin: 0.5rem;
+            width: 120px;
+            max-width: 120px;
+            margin: 0;
             text-align: center;
+            flex-shrink: 0;
         }
+
         .file-preview {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border: 1px solid #ddd;
             border-radius: 4px;
             overflow: hidden;
@@ -204,11 +220,14 @@
             justify-content: center;
             background: #f8f9fa;
         }
+
         .file-preview img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            display: block;
         }
+
         .file-preview .remove-file {
             position: absolute;
             top: 5px;
@@ -226,28 +245,47 @@
             transition: all 0.2s ease;
             padding: 0;
             font-size: 12px;
+            z-index: 10;
         }
+
         .file-preview .remove-file:hover {
             background: #dc3545;
             color: white;
         }
+
         .file-name {
             margin-top: 0.5rem;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             color: #6c757d;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            max-width: 120px;
         }
+
         .custom-file {
             position: relative;
             display: inline-block;
             width: 100%;
             margin-bottom: 0;
         }
+
         .form-group {
             margin-bottom: 1.5rem;
         }
+
+        .file-preview-zone {
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        /* Ensure images don't break layout */
+        .file-preview a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
         /* File upload progress */
         .upload-progress {
             position: absolute;
@@ -259,11 +297,13 @@
             border-radius: 0 0 4px 4px;
             overflow: hidden;
         }
+
         .upload-progress-bar {
             height: 100%;
             background: #007bff;
             transition: width 0.2s ease;
         }
+
         /* Drag and drop zone */
         .drag-drop-zone {
             border: 2px dashed #dee2e6;
@@ -273,9 +313,28 @@
             text-align: center;
             transition: all 0.2s ease;
         }
+
         .drag-drop-zone.dragover {
             border-color: #007bff;
             background: #e3f2fd;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .file-wrapper {
+                width: 100px;
+                max-width: 100px;
+            }
+
+            .file-preview {
+                width: 100px;
+                height: 100px;
+            }
+
+            .file-name {
+                max-width: 100px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 @endpush
@@ -322,11 +381,19 @@
 
                     newFiles.forEach(file => {
                         if (validFiles.length >= availableSlots) {
-                            toastr.warning(`Maximum ${maxFiles} files allowed`);
+                            if (typeof toastr !== 'undefined') {
+                                toastr.warning(`Maximum ${maxFiles} files allowed`);
+                            } else {
+                                alert(`Maximum ${maxFiles} files allowed`);
+                            }
                             return;
                         }
                         if (file.size > maxSize * 1024) {
-                            toastr.error(`${file.name} exceeds maximum size of ${maxSize}KB`);
+                            if (typeof toastr !== 'undefined') {
+                                toastr.error(`${file.name} exceeds maximum size of ${maxSize}KB`);
+                            } else {
+                                alert(`${file.name} exceeds maximum size of ${maxSize}KB`);
+                            }
                             return;
                         }
                         validFiles.push(file);
@@ -344,7 +411,10 @@
                 });
 
                 // Handle removal of files (both new and existing)
-                $(document).on('click', '.remove-file', function() {
+                $(document).on('click', '.remove-file', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     const $fileWrapper = $(this).closest('.file-wrapper');
                     const fileName = $fileWrapper.find('.file-name').text();
                     const isExisting = $fileWrapper.data('file');
@@ -369,16 +439,26 @@
                             },
                             success: function(response) {
                                 if (response.success) {
-                                    toastr.success(response.message);
+                                    if (typeof toastr !== 'undefined') {
+                                        toastr.success(response.message);
+                                    }
                                     $fileWrapper.fadeOut(300, function() {
                                         $(this).remove();
                                     });
                                 } else {
-                                    toastr.error(response.message);
+                                    if (typeof toastr !== 'undefined') {
+                                        toastr.error(response.message);
+                                    } else {
+                                        alert(response.message);
+                                    }
                                 }
                             },
                             error: function() {
-                                toastr.error('Failed to delete image.');
+                                if (typeof toastr !== 'undefined') {
+                                    toastr.error('Failed to delete image.');
+                                } else {
+                                    alert('Failed to delete image.');
+                                }
                             }
                         });
                     } else {
@@ -420,7 +500,7 @@
                     }
                 }
 
-                // Preview a file in the preview container
+                // Preview a file in the preview container - FIXED VERSION
                 function previewFile(file, $container) {
                     const reader = new FileReader();
                     const $wrapper = $('<div>').addClass('file-wrapper').hide();
@@ -434,10 +514,18 @@
 
                     reader.onload = function(e) {
                         if (file.type.startsWith('image/')) {
+                            const $img = $('<img>')
+                                .attr('src', e.target.result)
+                                .attr('alt', 'preview')
+                                .css({
+                                    'max-width': '100%',
+                                    'max-height': '100%',
+                                    'object-fit': 'cover'
+                                });
                             const $link = $('<a>')
                                 .attr('href', e.target.result)
                                 .addClass('glightbox')
-                                .append($('<img>').attr('src', e.target.result));
+                                .append($img);
                             $preview.append($link);
                         } else {
                             $preview.append($('<i>').addClass('fas fa-file fa-2x'));
@@ -446,8 +534,17 @@
                         $wrapper.append($preview, $name);
                         $container.append($wrapper);
                         $wrapper.fadeIn(300);
-                        lightbox.reload();
+
+                        // Reload lightbox to include new images
+                        if (typeof lightbox !== 'undefined') {
+                            lightbox.reload();
+                        }
                     };
+
+                    reader.onerror = function() {
+                        console.error('Error reading file:', file.name);
+                    };
+
                     reader.readAsDataURL(file);
                 }
             });
