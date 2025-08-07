@@ -50,7 +50,7 @@
             @foreach($advisory as $advisor)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <div class="card-img-placeholder" style="height: 300px; background-image: url('{{ asset($advisor->image_path) }}'); background-size: cover; background-position: center;">
+                        <div class="card-img-placeholder" style="height: 300px; background-image: url('{{ asset('storage/'.$advisor->image_path) }}'); background-size: cover; background-position: center;">
                             <!-- Image Placeholder -->
                         </div>
                         <div class="card-body">
