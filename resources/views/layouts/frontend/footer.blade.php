@@ -1,35 +1,46 @@
+@php
+    $siteName = $siteSetting->organization_name ?? config('app.name', 'NRN Association');
+@endphp
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h4>About {{@$siteSetting->organization_name}}</h4>
-                    <p>{{@$siteSetting->about_organisation}}</p>
-                </div>
-                <div class="col-md-4">
-                    <h4>Quick Links</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="about.html" class="text-white">About Us</a></li>
-                        <li><a href="projects.html" class="text-white">Our Projects</a></li>
-                        <li><a href="news.html" class="text-white">News & Events</a></li>
-                        <li><a href="contact.html" class="text-white">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4>Contact Info</h4>
-                    <p>
-                    {{@$siteSetting->organization_address}}<br>
-                        Phone:  {{@$siteSetting->organization_number}}<br>
-                        Email: {{@$siteSetting->organization_email}}<br>
-
-                    </p>
-                </div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            <div>
+                <p class="footer__eyebrow">Association</p>
+                <h2>{{ $siteName }}</h2>
+                <p>{{ $siteSetting->about_organisation ?? 'Community information, public updates, projects, events, and contact details for the association.' }}</p>
             </div>
-            <div class="row mt-4">
-                <div class="col-12 text-center">
-                     <p class="mb-0">&copy; {{ date('Y') }} {{ $siteSetting->organization_name ?? '' }}. All rights reserved.</p>
-                </div>
+
+            <div>
+                <p class="footer__eyebrow">Quick Links</p>
+                <ul class="footer__links">
+                    <li><a href="{{ route('about') }}">About Us</a></li>
+                    <li><a href="{{ route('board') }}">Board Members</a></li>
+                    <li><a href="{{ route('project') }}">Our Projects</a></li>
+                    <li><a href="{{ route('news-events') }}">News & Events</a></li>
+                    <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="footer__eyebrow">Contact</p>
+                <address>
+                    @if(!empty($siteSetting->organization_address))
+                        {{ $siteSetting->organization_address }}<br>
+                    @endif
+                    @if(!empty($siteSetting->organization_number))
+                        <a href="tel:{{ $siteSetting->organization_number }}">{{ $siteSetting->organization_number }}</a><br>
+                    @endif
+                    @if(!empty($siteSetting->organization_email))
+                        <a href="mailto:{{ $siteSetting->organization_email }}">{{ $siteSetting->organization_email }}</a>
+                    @endif
+                </address>
+                <a class="footer__button" href="{{ route('contact') }}">Send a message</a>
             </div>
         </div>
-    </footer>
+
+        <div class="footer__bottom">
+            <p>&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

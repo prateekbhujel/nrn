@@ -1,5 +1,3 @@
-//  Contact US JS
-// Form validation script
 (function () {
     'use strict'
     var forms = document.querySelectorAll('.needs-validation')
@@ -14,7 +12,8 @@
     })
 })()
 
-// Light box
-const lightbox = GLightbox({
-    selector: '.glightbox'
-});
+if (typeof GLightbox !== 'undefined') {
+    GLightbox({
+        selector: '.glightbox'
+    });
+}
