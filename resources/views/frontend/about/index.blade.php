@@ -1,96 +1,107 @@
 @extends('layouts.frontend.main')
 
-@section('main-content')
+@section('title', 'About Us')
 
-    <!-- Page Hero -->
-    <div class="hero-placeholder" style="height: 300px;">
-        <div class="container">
-            <h1 class="display-4">About Us</h1>
+@section('main-content')
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__content">
+            <p class="section-kicker">About the association</p>
+            <h1 class="page-title">About Us</h1>
+            <p>Mission, vision, values, and team information published by the association.</p>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white">Home</a></li>
-                    <li class="breadcrumb-item text-white" aria-current="page">About Us</li>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">About Us</li>
                 </ol>
             </nav>
         </div>
     </div>
+</section>
 
-    <!-- Mission & Vision Section -->
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <!-- Our Mission -->
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2>{{ $mission->title }}</h2>
-                            <p>{{ $mission->description }}</p>
-                            @if($mission->items->count())
-                            <ul>
-                                @foreach($mission->items as $item)
-                                    <li>{{ $item->content }}</li>
-                                @endforeach
-                            </ul>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <!-- Our Vision -->
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2>{{ $vision->title }}</h2>
-                            <p>{{ $vision->description }}</p>
-                            @if($vision->items->count())
-                            <ul>
-                                @foreach($vision->items as $item)
-                                    <li>{{ $item->content }}</li>
-                                @endforeach
-                            </ul>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section class="section">
+    <div class="container">
+        <div class="feature-grid feature-grid--two">
+            @if($mission)
+                <article class="content-card">
+                    <p class="section-kicker">Mission</p>
+                    <h2>{{ $mission->title }}</h2>
+                    <p>{{ $mission->description }}</p>
+                    @if($mission->items->count())
+                        <ul>
+                            @foreach($mission->items as $item)
+                                <li>{{ $item->content }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </article>
+            @endif
+
+            @if($vision)
+                <article class="content-card">
+                    <p class="section-kicker">Vision</p>
+                    <h2>{{ $vision->title }}</h2>
+                    <p>{{ $vision->description }}</p>
+                    @if($vision->items->count())
+                        <ul>
+                            @foreach($vision->items as $item)
+                                <li>{{ $item->content }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </article>
+            @endif
         </div>
-    </section>
 
-    <!-- Core Values Section -->
-    <section class="section bg-light">
+        @if(!$mission && !$vision)
+            <div class="empty-state">Mission and vision content will appear here once published.</div>
+        @endif
+    </div>
+</section>
+
+@if($coreValues && $coreValues->items->count())
+    <section class="section section--soft">
         <div class="container">
-            <h2 class="text-center mb-5">{{ $coreValues->title }}</h2>
-            <div class="row">
+            <div class="section-heading section-heading--center">
+                <p class="section-kicker">Values</p>
+                <h2 class="section-title">{{ $coreValues->title }}</h2>
+            </div>
+
+            <div class="feature-grid">
                 @foreach($coreValues->items as $item)
-                <div class="col-md-3">
-                    <div class="card text-center h-100">
-                        <div class="card-body">
-                            <div class="value-icon mb-3">{{ $item->icon }}</div>
-                            <h3>{{ $item->item_title }}</h3>
-                            <p>{{ $item->content }}</p>
-                        </div>
-                    </div>
-                </div>
+                    <article class="content-card">
+                        @if(!empty($item->icon))
+                            <div class="value-icon">{{ $item->icon }}</div>
+                        @endif
+                        <h3>{{ $item->item_title }}</h3>
+                        <p>{{ $item->content }}</p>
+                    </article>
                 @endforeach
             </div>
         </div>
     </section>
+@endif
 
-    <!-- Team Overview Section -->
+@if($team && $team->items->count())
     <section class="section">
         <div class="container">
-            <h2 class="text-center mb-5">{{ $team->title }}</h2>
-            <div class="row">
-                @foreach($team->items as $item)
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>{{ $item->item_title }}</h3>
-                            <p>{{ $item->content }}</p>
-                        </div>
-                    </div>
+            <div class="section-heading">
+                <div>
+                    <p class="section-kicker">Team</p>
+                    <h2 class="section-title">{{ $team->title }}</h2>
                 </div>
+                <p class="section-copy">Roles and responsibilities shared by the organization.</p>
+            </div>
+
+            <div class="feature-grid feature-grid--two">
+                @foreach($team->items as $item)
+                    <article class="content-card">
+                        <h3>{{ $item->item_title }}</h3>
+                        <p>{{ $item->content }}</p>
+                    </article>
                 @endforeach
             </div>
         </div>
     </section>
+@endif
 @endsection
