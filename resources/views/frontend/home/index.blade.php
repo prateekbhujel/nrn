@@ -1,123 +1,162 @@
 @extends('layouts.frontend.main')
 
+@section('title', $siteSetting->organization_name ?? config('app.name', 'NRN Association'))
+
 @section('main-content')
+@php
+    $siteName = $siteSetting->organization_name ?? config('app.name', 'NRN Association');
+@endphp
+
 @if(!empty($photoslider) && count($photoslider) > 0)
-  <!-- Hero Section with Carousel -->
-  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      @foreach($photoslider as $slider)
-        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-          <img src="{{ asset('storage/' . $slider->main_image) }}" class="d-block w-100" alt="{{ $slider->main_title }}">
-          <div class="carousel-caption d-none d-md-block">
-            <h1 class="display-4">{{ $slider->main_title }}</h1>
-            <p class="lead">{{ $slider->sub_title }}</p>
-            @if(!empty($slider->category))
-    <a href="{{ route($slider->category) }}" class="btn btn-light btn-lg mt-3">
-        {{ ucwords($slider->category) }}
-    </a>
-@endif
-
-          </div>
-        </div>
-      @endforeach
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-@endif
-
-
-  <!-- Featured Projects -->
-<section class="section">
-    <div class="container">
-        <h2 class="text-center mb-5">Our Projects</h2>
-        <div class="row">
-            @foreach ($projects as $project)
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $project->main_image) }}" class="card-img-top" alt="{{ $project->title }}">
-                        <div class="card-body">
-                            <h3>   <a href="{{ route('project.show_project', $project->slug) }}" class="text-decoration-none">
-                            {{ $project->title }}
-                        </a></h3>
-                            <p>{!! $project->description !!}</p>
-                        </div>
+    <section id="heroCarousel" class="carousel slide home-hero" data-bs-ride="carousel" aria-label="Featured updates">
+        <div class="carousel-inner">
+            @foreach($photoslider as $slider)
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <img src="{{ asset('storage/' . $slider->main_image) }}" alt="{{ $slider->main_title }}">
+                    <div class="carousel-caption">
+                        <p class="section-kicker">Nepal and Belgium community network</p>
+                        <h1>{{ $slider->main_title }}</h1>
+                        <p>{{ $slider->sub_title }}</p>
+                        @if(!empty($slider->category) && Route::has($slider->category))
+                            <a href="{{ route($slider->category) }}" class="button-link button-link--light">
+                                View {{ ucwords(str_replace('-', ' ', $slider->category)) }}
+                            </a>
+                        @endif
                     </div>
                 </div>
             @endforeach
         </div>
-    </div>
-</section>
-    <!-- Latest News -->
-<section class="section bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5">Latest News</h2>
-        <div class="row">
-            @foreach($news as $item)
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $item->banner) }}" class="card-img-top" alt="{{ $item->title }}">
-                        <div class="card-body">
-                            <h3>
-                                <a href="{{ route('news-events.show_news' , $item->slug) }}" class="text-decoration-none">
-                                    {{ $item->title }}
-                                </a>
-                            </h3>
-                            <p class="text-muted">{{ \Carbon\Carbon::parse($item->publish_date)->format('F d, Y') }}</p>
-                            <p>{!! $item->description !!}</p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </section>
+@else
+    <section class="home-hero__fallback">
+        <div class="container">
+            <p class="section-kicker">Nepal and Belgium community network</p>
+            <h1>{{ $siteName }}</h1>
+            <p>Public updates, projects, leadership information, and community events from the association.</p>
+            <a href="{{ route('contact') }}" class="button-link button-link--light">Contact the association</a>
         </div>
-    </div>
-</section>
+    </section>
+@endif
 
-
-    <!-- Upcoming Events Slider -->
-<section class="section">
+<section class="home-intro">
     <div class="container">
-        <h2 class="text-center mb-5">Upcoming Events</h2>
-        <div id="eventsCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @foreach($events as $index => $event)
-                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img src="{{ asset('storage/' . $event->banner) }}" class="card-img-top" alt="{{ $event->title }}">
-                                    <div class="card-body">
-                                        <h3>
-                                            <a href="{{ route('news-events.show_event', $event->slug) }}" class="text-decoration-none">
-                                                {{ $event->title }}
-                                            </a>
-                                        </h3>
-                                        <p class="text-muted">{{ date('F d, Y', strtotime($event->event_date)) }}</p>
-                                        <p>{!! Str::limit($event->description, 100) !!}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+        <div class="home-intro__panel">
+            <div>
+                <p class="section-kicker">Community office</p>
+                <h2 class="section-title">A public hub for association work, programs, and member updates.</h2>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <a class="button-link button-link--primary" href="{{ route('about') }}">Learn about us</a>
         </div>
     </div>
 </section>
 
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <p class="section-kicker">Projects</p>
+                <h2 class="section-title">Current initiatives</h2>
+            </div>
+            <p class="section-copy">Programs and community work published by the association.</p>
+        </div>
 
+        <div class="resource-grid">
+            @forelse ($projects as $project)
+                <article class="resource-card">
+                    @if($project->main_image)
+                        <img src="{{ asset('storage/' . $project->main_image) }}" class="resource-card__image" alt="{{ $project->title }}">
+                    @endif
+                    <div class="resource-card__body">
+                        <h3 class="resource-card__title">
+                            <a href="{{ route('project.show_project', $project->slug) }}">{{ $project->title }}</a>
+                        </h3>
+                        <p class="resource-card__text">{{ Str::limit(strip_tags($project->description), 150) }}</p>
+                        <a class="resource-card__link" href="{{ route('project.show_project', $project->slug) }}">View project</a>
+                    </div>
+                </article>
+            @empty
+                <div class="empty-state">Projects will appear here once published.</div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<section class="section section--soft">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <p class="section-kicker">News</p>
+                <h2 class="section-title">Latest public updates</h2>
+            </div>
+            <a class="button-link button-link--outline" href="{{ route('news-events') }}">All news and events</a>
+        </div>
+
+        <div class="resource-grid">
+            @forelse($news as $item)
+                <article class="resource-card">
+                    @if($item->banner)
+                        <img src="{{ asset('storage/' . $item->banner) }}" class="resource-card__image" alt="{{ $item->title }}">
+                    @endif
+                    <div class="resource-card__body">
+                        <div class="resource-card__meta">
+                            <span>{{ \Carbon\Carbon::parse($item->publish_date)->format('F d, Y') }}</span>
+                        </div>
+                        <h3 class="resource-card__title">
+                            <a href="{{ route('news-events.show_news', $item->slug) }}">{{ $item->title }}</a>
+                        </h3>
+                        <p class="resource-card__text">{{ Str::limit(strip_tags($item->description), 150) }}</p>
+                        <a class="resource-card__link" href="{{ route('news-events.show_news', $item->slug) }}">Read update</a>
+                    </div>
+                </article>
+            @empty
+                <div class="empty-state">News will appear here once published.</div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <p class="section-kicker">Events</p>
+                <h2 class="section-title">Community calendar</h2>
+            </div>
+            <p class="section-copy">Recent and upcoming programs, gatherings, and formal activities.</p>
+        </div>
+
+        <div class="resource-grid">
+            @forelse($events as $event)
+                <article class="resource-card">
+                    @if($event->banner)
+                        <img src="{{ asset('storage/' . $event->banner) }}" class="resource-card__image" alt="{{ $event->title }}">
+                    @endif
+                    <div class="resource-card__body">
+                        <div class="resource-card__meta">
+                            <span>{{ date('F d, Y', strtotime($event->event_date)) }}</span>
+                            @if(!empty($event->location))
+                                <span>{{ $event->location }}</span>
+                            @endif
+                        </div>
+                        <h3 class="resource-card__title">
+                            <a href="{{ route('news-events.show_event', $event->slug) }}">{{ $event->title }}</a>
+                        </h3>
+                        <p class="resource-card__text">{{ Str::limit(strip_tags($event->description), 140) }}</p>
+                        <a class="resource-card__link" href="{{ route('news-events.show_event', $event->slug) }}">View event</a>
+                    </div>
+                </article>
+            @empty
+                <div class="empty-state">Events will appear here once published.</div>
+            @endforelse
+        </div>
+    </div>
+</section>
 @endsection
