@@ -1,29 +1,37 @@
 @extends('layouts.frontend.main')
+
+@section('title', 'Gallery Photos')
+
 @section('main-content')
-<section class="section">
+@php
+    $galleryTitle = $galleries->first()->title ?? 'Gallery Photos';
+@endphp
+
+<section class="page-hero">
     <div class="container">
-        @foreach($galleries as $gallery)
-            <h4 class="mt-2 text-center">{{ $gallery->title }}</h4>
-            <div class="row g-4">
-                @foreach($gallery->banner as $banner)
-                    <div class="col-md-4">
-                        <div class="gallery-item">
-                            <a href="{{ asset('storage/'. $banner) }}" class="glightbox" data-gallery="gallery">
-                                <img src="{{ asset('storage/' . $banner) }}" class="img-fluid" alt="{{ $gallery->title }}" />
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
+        <div class="page-hero__content">
+            <p class="section-kicker">Photo collection</p>
+            <h1 class="page-title">{{ $galleryTitle }}</h1>
+            <p>Images from this published gallery collection.</p>
+        </div>
     </div>
 </section>
 
-<!-- Include necessary JS/CSS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-
+<section class="section">
+    <div class="container">
+        @forelse($galleries as $gallery)
+            <div class="gallery-grid">
+                @forelse($gallery->banner ?? [] as $banner)
+                    <a href="{{ asset('storage/' . $banner) }}" class="gallery-card glightbox" data-gallery="gallery">
+                        <img src="{{ asset('storage/' . $banner) }}" class="gallery-card__image" alt="{{ $gallery->title }}">
+                    </a>
+                @empty
+                    <div class="empty-state">Photos will appear here once published.</div>
+                @endforelse
+            </div>
+        @empty
+            <div class="empty-state">Gallery photos will appear here once published.</div>
+        @endforelse
+    </div>
+</section>
 @endsection

@@ -1,36 +1,52 @@
 @extends('layouts.frontend.main')
-@section('main-content')
-<div class="hero-placeholder">
-    <div class="container">
-      <h1 class="display-4">Our Projects</h1>
-      <p class="lead">Explore the initiatives transforming communities across Nepal</p>
-    </div>
-  </div>
 
-  <!-- Projects Section -->
-  <section class="section">
-  <div class="container">
-    <h2 class="text-center mb-5">Featured Projects</h2>
-    <div class="row">
-      @foreach($project as $item)
-        <div class="col-md-4">
-          <div class="card">
-            @if($item->main_image)
-              <img src="{{ asset('storage/' . $item->main_image) }}" class="card-img-top" alt="{{ $item->title }}">
-            @endif
-            <div class="card-body">
-              <h3>
-                <a href="{{ route('project.show_project', $item->slug) }}" class="text-decoration-none">
-                  {{ $item->title }}
-                </a>
-              </h3>
-              <p>{{ Str::limit($item->description, 150) }}</p>
-            </div>
-          </div>
+@section('title', 'Our Projects')
+
+@section('main-content')
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__content">
+            <p class="section-kicker">Projects</p>
+            <h1 class="page-title">Our Projects</h1>
+            <p>Explore initiatives, programs, and community work published by the association.</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Our Projects</li>
+                </ol>
+            </nav>
         </div>
-      @endforeach
     </div>
-  </div>
 </section>
 
-  @endsection
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <p class="section-kicker">Program catalog</p>
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+            <p class="section-copy">Each project page contains the published description and gallery images.</p>
+        </div>
+
+        <div class="resource-grid">
+            @forelse($project as $item)
+                <article class="resource-card">
+                    @if($item->main_image)
+                        <img src="{{ asset('storage/' . $item->main_image) }}" class="resource-card__image" alt="{{ $item->title }}">
+                    @endif
+                    <div class="resource-card__body">
+                        <h3 class="resource-card__title">
+                            <a href="{{ route('project.show_project', $item->slug) }}">{{ $item->title }}</a>
+                        </h3>
+                        <p class="resource-card__text">{{ Str::limit(strip_tags($item->description), 150) }}</p>
+                        <a class="resource-card__link" href="{{ route('project.show_project', $item->slug) }}">View project</a>
+                    </div>
+                </article>
+            @empty
+                <div class="empty-state">Projects will appear here once published.</div>
+            @endforelse
+        </div>
+    </div>
+</section>
+@endsection
