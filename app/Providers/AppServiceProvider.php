@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Aboutus;
+use App\Helper\MailHelper;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        MailHelper::setMailConfig();
+
         View::composer(['*'],function($view){
             $view->with('siteSetting',Aboutus::find(1));
         });

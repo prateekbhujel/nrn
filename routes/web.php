@@ -22,6 +22,7 @@ use App\Http\Controllers\Frontend\NewsEventControllerler;
 use App\Http\Controllers\Backend\AboutusController;
 use App\Http\Controllers\Backend\PhotoSliderController;
 use App\Http\Controllers\Backend\ContactController as BackendContactController; 
+use App\Http\Controllers\Backend\EmailConfigurationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -88,6 +89,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::group(['prefix'=>'contact'],function(){
         Route::get('/',[BackendContactController::class,'index'])->name('contact');
         Route::post('/view',[BackendContactController::class,'view'])->name('contact.view');
+        Route::post('/reply/{contact}',[BackendContactController::class,'reply'])->name('contact.reply');
         Route::delete('/destroy/{id}',[BackendContactController::class,'destroy'])->name('contact.destroy');
     }); 
 
@@ -98,6 +100,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [AboutusController::class, 'index'])->name('sitesetting');
         Route::post('/save', [AboutusController::class, 'save'])->name('sitesetting.save');
     });
+
+    Route::get('/email-configuration', [EmailConfigurationController::class, 'edit'])->name('email-configuration.edit');
+    Route::post('/email-configuration', [EmailConfigurationController::class, 'update'])->name('email-configuration.update');
     
 });
 

@@ -5,10 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Exception;
 
 class Contact extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'full_name',
+        'email_address',
+        'subject',
+        'message',
+        'reply_subject',
+        'reply_message',
+        'replied_at',
+        'replied_by',
+    ];
+
+    protected $casts = [
+        'replied_at' => 'datetime',
+    ];
 
     public static function saveData($post)
     {

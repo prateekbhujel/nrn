@@ -1,30 +1,46 @@
 <?php
 
-namespace app\Helper;
+namespace App\Helper;
 
 use App\Models\EmailConfiguration;
+use Illuminate\Support\Facades\Schema;
+use Throwable;
 
-class MailHelper 
+class MailHelper
 {
-     
-    public static function setMailConfig()
+    public static function setMailConfig(): void
     {
-        $emailConfig = EmailConfiguration::first();
+        try {
+            if (! Schema::hasTable('email_configurations')) {
+                return;
+            }
 
-        $config = [
-                'transport' => 'smtp',
-                'host' => $emailConfig->host,
-                'port' => $emailConfig->port,
-                'encryption' => $emailConfig->encryption,
-                'username' => $emailConfig->username,
-                'password' => $emailConfig->password,
-                'timeout' => null,
-                'local_domain' => env('MAIL_EHLO_DOMAIN'),
-        ];
+            $emailConfig = EmailConfiguration::query()
+                ->where('is_active', true)
+                ->first();
 
-        config(['mail.mailers.smtp' => $config]);
-        config(['mail.from.address' => $emailConfig->email]);
-        // dd(config('mail'));
+            if (! $emailConfig || blank($emailConfig->host) || blank($emailConfig->from_address)) {
+                return;
+            }
 
-    }//End Method
+            config([
+                'mail.default' => 'smtp',
+                'mail.mailers.smtp' => [
+                    'transport' => 'smtp',
+                    'url' => null,
+                    'host' => $emailConfig->host,
+                    'port' => $emailConfig->port,
+                    'encryption' => $emailConfig->encryption,
+                    'username' => $emailConfig->username,
+                    'password' => $emailConfig->password,
+                    'timeout' => null,
+                    'local_domain' => env('MAIL_EHLO_DOMAIN'),
+                ],
+                'mail.from.address' => $emailConfig->from_address,
+                'mail.from.name' => $emailConfig->from_name ?: config('app.name'),
+            ]);
+        } catch (Throwable) {
+            return;
+        }
+    }
 }

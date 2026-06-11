@@ -98,6 +98,13 @@
          <span> Site Setting</span>
         </a>
       </li>
+
+      <li class="{{ Request::routeIs('admin.email-configuration.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.email-configuration.edit') }}">
+        <i class="fas fa-envelope-open-text"></i>
+         <span> SMTP Settings</span>
+        </a>
+      </li>
     </ul>
   </aside>
 </div>

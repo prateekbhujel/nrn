@@ -24,13 +24,20 @@ class ContactDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
+            ->addColumn('reply_status', function ($contact) {
+                if ($contact->replied_at) {
+                    return '<span class="badge badge-success">Replied</span>';
+                }
+
+                return '<span class="badge badge-warning">Pending</span>';
+            })
             ->editColumn('action', function($contact){
                 return view('admin.contact.partials.actions',compact('contact'))->render();
 
             })
             ->editColumn('created_at',function($contact){
                 return Carbon::parse($contact->created_at)->format('M j, Y');
-            })->rawColumns(['action'])->setRowId('id');
+            })->rawColumns(['action', 'reply_status'])->setRowId('id');
     }
 
     /**
@@ -64,6 +71,12 @@ class ContactDataTable extends DataTable
             Column::make('email_address'),
             Column::make('subject'),
             Column::make('message'),
+            Column::computed('reply_status')
+                  ->title('Reply')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->searchable(false)
+                  ->orderable(false),
             Column::make('created_at'),
             Column::computed('action')
                   ->exportable(false)
